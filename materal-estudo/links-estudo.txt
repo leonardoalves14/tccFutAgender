@@ -1,0 +1,2 @@
+1 - https://docs.microsoft.com/pt-br/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.1;
+2 - https://docs.microsoft.com/pt-br/aspnet/core/web-api/action-return-types?view=aspnetcore-2.1
