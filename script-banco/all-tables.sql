@@ -1,93 +1,107 @@
 /* INÍCIO CRIAÇÃO DE OBJETOS */
 
 CREATE TABLE Pessoa(
-	Pessoa_Id           INT PRIMARY KEY NOT NULL,
-	Pessoa_Nome         VARCHAR(100)    NOT NULL,
-	Pessoa_CPF			VARCHAR(11)     NOT NULL,
-	Pessoa_RG			VARCHAR(20)     NOT NULL,
-	Pessoa_Email        VARCHAR(100)    NOT NULL,
-	Pessoa_DtNascimento DATETIME        NOT NULL,	
-	Pessoa_TelUm        VARCHAR(13)     NOT NULL,
-	Pessoa_TelDois      VARCHAR(13)     NOT NULL,
-	Endereco_Id         INT			    NOT NULL
+	Pessoa_Id           INT          NOT NULL,
+	Pessoa_Nome         VARCHAR(100) NOT NULL,
+	Pessoa_CPF			VARCHAR(11)  NOT NULL,
+	Pessoa_RG			VARCHAR(20)  NOT NULL,
+	Pessoa_Email        VARCHAR(100) NOT NULL,
+	Pessoa_DtNascimento DATETIME     NOT NULL,	
+	Pessoa_TelUm        VARCHAR(13)  NOT NULL,
+	Pessoa_TelDois      VARCHAR(13)  NOT NULL,
+	Endereco_Id         INT			 NOT NULL,
+	PRIMARY KEY CLUSTERED (Pessoa_Id ASC)
 );
 GO
 
 CREATE TABLE Endereco(
-	Endereco_Id         INT PRIMARY KEY NOT NULL,
-	Endereco_Logradouro VARCHAR(50)     NOT NULL,
-	Endereco_Numero     VARCHAR(10)     NOT NULL,
-	Endereco_Bairro     VARCHAR(50)     NOT NULL,
-	Endereco_Cidade     VARCHAR(100)    NOT NULL,
-	Estado_Id           INT             NOT NULL
+	Endereco_Id         INT          NOT NULL,
+	Endereco_Logradouro VARCHAR(50)  NOT NULL,
+	Endereco_Numero     VARCHAR(10)  NOT NULL,
+	Endereco_Bairro     VARCHAR(50)  NOT NULL,
+	Endereco_Cidade     VARCHAR(100) NOT NULL,
+	Estado_Id           INT          NOT NULL,
+	PRIMARY KEY CLUSTERED (Endereco_Id ASC)
 );
 GO
 
 CREATE TABLE Estado(
-	Estado_Id    INT PRIMARY KEY NOT NULL,
-	Estado_Desc  VARCHAR(20)     NOT NULL,
-	Estado_Sigla CHAR(2)         NOT NULL
+	Estado_Id    INT         NOT NULL,
+	Estado_Desc  VARCHAR(20) NOT NULL,
+	Estado_Sigla CHAR(2)     NOT NULL,
+	PRIMARY KEY CLUSTERED (Estado_Id ASC)
 );
 GO
 
+-- Cuidado
 CREATE TABLE Cliente(
-	Cliente_Id INT PRIMARY KEY NOT NULL,
-	Pessoa_Id  INT			   NOT NULL
+	Cliente_Id INT NOT NULL,
+	Pessoa_Id  INT NOT NULL,
+	PRIMARY KEY CLUSTERED (Cliente_Id ASC, Pessoa_Id ASC)
 );
 GO
 
+-- Cuidado
 CREATE TABLE Funcionario(
-	Funcionario_Id     INT PRIMARY KEY NOT NULL,
-	Funcionario_Dono   BIT             NOT NULL,
-	Funcionario_Login  VARCHAR(15)     NOT NULL,
-	Funcionario_Senha  VARCHAR(20)     NOT NULL,
-	Pessoa_Id          INT	           NOT NULL,
-	Estabelecimento_Id INT		       NOT NULL
+	Funcionario_Id     INT         NOT NULL,
+	Funcionario_Dono   BIT         NOT NULL,
+	Funcionario_Login  VARCHAR(15) NOT NULL,
+	Funcionario_Senha  VARCHAR(20) NOT NULL,
+	Pessoa_Id          INT	       NOT NULL,
+	Estabelecimento_Id INT		   NOT NULL,
+	PRIMARY KEY CLUSTERED (Funcionario_Id ASC, Pessoa_Id ASC)
 );
 GO
 
 CREATE TABLE Agendamento(
-	Agendamento_Id        INT PRIMARY KEY NOT NULL,
-	Agendamento_Descricao VARCHAR(100)    NOT NULL,
-	Agendamento_HrInicio  DATETIME        NOT NULL,
-	Agendamento_HrFim     DATETIME        NOT NULL,
-	Cliente_Id            INT             NOT NULL
+	Agendamento_Id        INT          NOT NULL,
+	Agendamento_Descricao VARCHAR(100) NOT NULL,
+	Agendamento_HrInicio  DATETIME     NOT NULL,
+	Agendamento_HrFim     DATETIME     NOT NULL,
+	Cliente_Id            INT          NOT NULL,
+	PRIMARY KEY CLUSTERED (Agendamento_Id ASC)
 );
 GO
 
 CREATE TABLE Estabelecimento(
-	Estabelecimento_Id   INT PRIMARY KEY NOT NULL,
-	Estabelecimento_Nome VARCHAR(100)    NOT NULL,
-	Endereco_Id          INT             NOT NULL,
-	Estabelecimento_Tel  VARCHAR(13)     NOT NULL,
+	Estabelecimento_Id   INT          NOT NULL,
+	Estabelecimento_Nome VARCHAR(100) NOT NULL,	
+	Estabelecimento_Tel  VARCHAR(13)  NOT NULL,
+	Endereco_Id          INT          NOT NULL,
+	PRIMARY KEY CLUSTERED (Estabelecimento_Id ASC)
 );
 GO
 
+-- Cuidado
 CREATE TABLE AgendaEstabelecimento(
-    AgendaEstabelecimento_Id INT PRIMARY KEY NOT NULL,
-	Estabelecimento_Id       INT NOT NULL,
-	Agendamento_Id           INT NOT NULL
+    AgendaEstabelecimento_Id INT NOT NULL,
+	Agendamento_Id           INT NOT NULL,
+	Estabelecimento_Id       INT NOT NULL,	
+	PRIMARY KEY CLUSTERED (AgendaEstabelecimento_Id ASC, Agendamento_Id ASC)
 );
 GO
 
 CREATE TABLE Horario(
-	Horario_Id  INT PRIMARY KEY NOT NULL,
-	Horario_De  DATETIME        NOT NULL,
-	Horario_Ate DATETIME        NOT NULL
+	Horario_Id  INT      NOT NULL,
+	Horario_De  DATETIME NOT NULL,
+	Horario_Ate DATETIME NOT NULL,
+	PRIMARY KEY CLUSTERED (Horario_Id ASC)
 );
 GO
 
+-- Cuidado
 CREATE TABLE HorarioEstabelecimento(
-    HorarioEstabelecimento_Id INT PRIMARY KEY NOT NULL,
 	Horario_Id		          INT NOT NULL,
 	Estabelecimento_Id        INT NOT NULL,
-	DiaSemana_Id	          INT NOT NULL
+	DiaSemana_Id	          INT NOT NULL,
+	PRIMARY KEY CLUSTERED (Horario_Id ASC, Estabelecimento_Id ASC)
 );
 GO
 
 CREATE TABLE DiaSemana(
-	DiaSemana_Id   INT PRIMARY KEY NOT NULL,
-	DiaSemana_Desc VARCHAR(13)
+	DiaSemana_Id   INT         NOT NULL,
+	DiaSemana_Desc VARCHAR(13) NOT NULL,
+	PRIMARY KEY CLUSTERED (DiaSemana_Id ASC)
 );
 GO
 
