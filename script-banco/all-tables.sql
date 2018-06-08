@@ -2,22 +2,23 @@
 
 -- OK
 CREATE TABLE Endereco(
-	Endereco_Id         INT          NOT NULL,
-	Endereco_Logradouro VARCHAR(50)  NOT NULL,
-	Endereco_Numero     INT          NOT NULL,
-	Endereco_Bairro     VARCHAR(50)  NOT NULL,
-	Endereco_Cidade     VARCHAR(100) NOT NULL,
-	Endereco_Estado     CHAR(2)      NOT NULL,
+	Endereco_Id          INT          NOT NULL,
+	Endereco_Logradouro  VARCHAR(50)  NOT NULL,
+	Endereco_Numero      INT          NOT NULL,
+	Endereco_Bairro      VARCHAR(50)  NOT NULL,
+	Endereco_Cidade      VARCHAR(100) NOT NULL,
+	Endereco_Estado      CHAR(2)      NOT NULL,
+	Endereco_Complemento VARCHAR(100) NOT NULL,
 	PRIMARY KEY CLUSTERED (Endereco_Id ASC)
 );
 GO
 
 -- OK
 CREATE TABLE Cliente(
-    Cliente_Id           INT          NOT NULL
-	Cliente_Nome         VARCHAR(100) NOT NULL,
-	Cliente_CPF			 VARCHAR(11)  NOT NULL,
-	Cliente_RG			 VARCHAR(20)  NOT NULL,
+    Cliente_Id           INT          NOT NULL,
+	Cliente_Nome         VARCHAR(255) NOT NULL,
+	Cliente_CPF			 VARCHAR(13)  NOT NULL,
+	Cliente_RG			 VARCHAR(14)  NOT NULL,
 	Cliente_Email        VARCHAR(255) NOT NULL,
 	Cliente_DtNascimento DATETIME     NOT NULL,	
 	Cliente_TelUm        VARCHAR(13)  NOT NULL,
@@ -28,18 +29,41 @@ CREATE TABLE Cliente(
 GO
 
 -- OK
+CREATE TABLE Cargo(
+	Cargo_Id   INT          NOT NULL,
+	Cargo_Desc VARCHAR(255) NOT NULL,
+	PRIMARY KEY CLUSTERED (Cargo_Id ASC)
+);
+GO
+
+-- OK
 CREATE TABLE Funcionario(
 	Funcionario_Id           INT          NOT NULL,	
-	Funcionario_Nome         VARCHAR(100) NOT NULL,
-	Funcionario_CPF			 VARCHAR(11)  NOT NULL,
-	Funcionario_RG			 VARCHAR(20)  NOT NULL,
-	Funcionario_DtNascimento DATETIME     NOT NULL,	
-	Funcionario_TelUm        VARCHAR(13)  NOT NULL,
-	Funcionario_TelDois      VARCHAR(13)  NOT NULL,
-	Funcionario_Dono         BIT          NOT NULL,
+	Funcionario_Nome         VARCHAR(255) NOT NULL,
+	Funcionario_CPF			 VARCHAR(13)  NOT NULL,
+	Funcionario_RG			 VARCHAR(14)  NOT NULL,
+	Funcionario_DtNascimento DATETIME     NOT NULL,
 	Endereco_Id              INT	      NOT NULL,
 	Estabelecimento_Id       INT		  NOT NULL,
-	Usuario_Id               INT		  NOT NULL,
+	PRIMARY KEY CLUSTERED (Funcionario_Id ASC)
+);
+GO
+
+-- OK
+CREATE TABLE FuncionarioContato(
+	Funcionario_Id			    INT          NOT NULL,
+	FuncionarioContato_Telefone VARCHAR(20)  NOT NULL,
+	FuncionarioContato_Celular  VARCHAR(20)  NOT NULL,
+	FuncionarioContato_Email    VARCHAR(200) NOT NULL,
+	PRIMARY KEY CLUSTERED (Funcionario_Id ASC)
+);
+GO
+
+-- OK
+CREATE TABLE FuncionarioCargo(
+	Funcionario_Id              INT      NOT NULL,
+	FuncionarioCargo_DtAdmissao DATETIME NOT NULL,
+	Cargo_Id                    INT      NOT NULL,
 	PRIMARY KEY CLUSTERED (Funcionario_Id ASC)
 );
 GO
@@ -49,15 +73,30 @@ CREATE TABLE Usuario(
 	Usuario_Id     INT          NOT NULL,
 	Usuario_Login  VARCHAR(10)  NOT NULL,
 	Usuario_Senha  VARCHAR(20)  NOT NULL,
-	Usuario_Email  VARCHAR(255) NOT NULL,
 	PRIMARY KEY CLUSTERED (Usuario_Id ASC)
+);
+GO
+
+-- OK
+CREATE TABLE UsuarioFuncionario(
+	Usuario_Id     INT NOT NULL,
+	Funcionario_Id INT NOT NULL,
+	PRIMARY KEY CLUSTERED (Usuario_Id ASC, Funcionario_Id ASC)
 );
 GO
 
 -- OK
 CREATE TABLE Agendamento(
 	Agendamento_Id        INT          NOT NULL,
-	Agendamento_Descricao VARCHAR(100) NOT NULL,		
+	Agendamento_Descricao VARCHAR(200) NOT NULL,		
+	PRIMARY KEY CLUSTERED (Agendamento_Id ASC)
+);
+GO
+
+-- OK
+CREATE TABLE AgendamentoCliente(
+	Agendamento_Id INT NOT NULL,
+	Cliente_Id     INT NOT NULL,
 	PRIMARY KEY CLUSTERED (Agendamento_Id ASC)
 );
 GO
@@ -65,11 +104,20 @@ GO
 -- OK
 CREATE TABLE Estabelecimento(
 	Estabelecimento_Id   INT          NOT NULL,
-	Estabelecimento_Nome VARCHAR(100) NOT NULL,
-    Estabelecimento_CNPJ VARCHAR(20)  NOT NULL,	
-	Estabelecimento_Tel  VARCHAR(13)  NOT NULL,
+	Estabelecimento_Nome VARCHAR(200) NOT NULL,
+    Estabelecimento_CNPJ VARCHAR(14)  NOT NULL,
 	Endereco_Id          INT          NOT NULL,
 	PRIMARY KEY CLUSTERED (Estabelecimento_Id ASC)
+);
+GO
+
+-- OK
+CREATE TABLE EstabelecimentoContato(
+	Estabelecimento_Id              INT          NOT NULL,
+	EstabelecimentoContato_Telefone VARCHAR(20)  NOT NULL,
+	EstabelecimentoContato_Celular  VARCHAR(20)  NOT NULL,
+	EstabelecimentoContato_Email	VARCHAR(200) NOT NULL,
+	PRIMARY KEY CLUSTERED (Estabelecimento_Id)
 );
 GO
 
@@ -85,6 +133,7 @@ CREATE TABLE AgendaEstabelecimento(
 );
 GO
 
+-- OK
 CREATE TABLE Horario(
 	Horario_Id  INT      NOT NULL,
 	Horario_De  DATETIME NOT NULL,
@@ -93,6 +142,7 @@ CREATE TABLE Horario(
 );
 GO
 
+-- OK
 -- Cuidado
 CREATE TABLE HorarioEstabelecimento(
 	Horario_Id		          INT NOT NULL,
@@ -102,6 +152,7 @@ CREATE TABLE HorarioEstabelecimento(
 );
 GO
 
+-- OK
 CREATE TABLE DiaSemana(
 	DiaSemana_Id   INT         NOT NULL,
 	DiaSemana_Desc VARCHAR(13) NOT NULL,
