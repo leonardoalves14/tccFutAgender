@@ -34,14 +34,14 @@ CREATE TABLE Cargo(
 GO
 ------ 4 ------------------------------------------------------------------------------
 CREATE TABLE Funcionario(
-	Funcionario_Id           INT          NOT NULL,	
-	Funcionario_Nome         VARCHAR(255) NOT NULL,
-	Funcionario_CPF			 VARCHAR(13)  NOT NULL,
-	Funcionario_RG			 VARCHAR(14)  NOT NULL,
-	Funcionario_DtNascimento DATETIME     NOT NULL,
-	Endereco_Id              INT	      NOT NULL,
-	Estabelecimento_Id       INT		  NOT NULL,
-	PRIMARY KEY CLUSTERED (Funcionario_Id ASC)
+    Funcionario_Id           INT          NOT NULL,	
+    Funcionario_Nome         VARCHAR(255) NOT NULL,
+    Funcionario_CPF			 VARCHAR(13)  NOT NULL,
+    Funcionario_RG			 VARCHAR(14)  NOT NULL,
+    Funcionario_DtNascimento DATETIME     NOT NULL,
+    Endereco_Id              INT	      NOT NULL,
+    Estabelecimento_Id       INT		  NOT NULL,
+    PRIMARY KEY CLUSTERED (Funcionario_Id ASC)
 );
 GO
 ------ 5 ------------------------------------------------------------------------------
@@ -65,9 +65,9 @@ CREATE TABLE FuncionarioCargo(
 GO
 ------ 7 ------------------------------------------------------------------------------
 CREATE TABLE Usuario(
-	Usuario_Id     INT          NOT NULL,
-	Usuario_Login  VARCHAR(10)  NOT NULL,
-	Usuario_Senha  VARCHAR(20)  NOT NULL,
+	Usuario_Id     INT         NOT NULL,
+	Usuario_Login  VARCHAR(10) NOT NULL,
+	Usuario_Senha  VARCHAR(20) NOT NULL,
 	PRIMARY KEY CLUSTERED (Usuario_Id ASC)
 );
 GO
@@ -135,9 +135,9 @@ GO
 ------ 15 -----------------------------------------------------------------------------
 -- Cuidado com Tabela
 CREATE TABLE HorarioEstabelecimento(
-	Horario_Id		          INT NOT NULL,
-	Estabelecimento_Id        INT NOT NULL,
-	DiaSemana_Id	          INT NOT NULL,
+	Horario_Id		   INT NOT NULL,
+	Estabelecimento_Id INT NOT NULL,
+	DiaSemana_Id	   INT NOT NULL,
 	PRIMARY KEY CLUSTERED (Horario_Id ASC, Estabelecimento_Id ASC)
 );
 GO
