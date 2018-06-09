@@ -8,6 +8,7 @@ CREATE TABLE Endereco(
 	Endereco_Cidade      VARCHAR(100) NOT NULL,
 	Endereco_Estado      CHAR(2)      NOT NULL,
 	Endereco_Complemento VARCHAR(100) NOT NULL,
+	Endereco_CEP         VARCHAR(20)  NOT NULL,
 	PRIMARY KEY CLUSTERED (Endereco_Id ASC)
 );
 GO
@@ -40,7 +41,6 @@ CREATE TABLE Funcionario(
     Funcionario_RG			 VARCHAR(14)  NOT NULL,
     Funcionario_DtNascimento DATETIME     NOT NULL,
     Endereco_Id              INT	      NOT NULL,
-    Estabelecimento_Id       INT		  NOT NULL,
     PRIMARY KEY CLUSTERED (Funcionario_Id ASC)
 );
 GO
@@ -138,7 +138,7 @@ CREATE TABLE HorarioEstabelecimento(
 	Horario_Id		   INT NOT NULL,
 	Estabelecimento_Id INT NOT NULL,
 	DiaSemana_Id	   INT NOT NULL,
-	PRIMARY KEY CLUSTERED (Horario_Id ASC, Estabelecimento_Id ASC)
+	PRIMARY KEY CLUSTERED (Horario_Id ASC, Estabelecimento_Id ASC, DiaSemana_Id ASC)
 );
 GO
 ------ 16 -----------------------------------------------------------------------------
@@ -147,6 +147,14 @@ CREATE TABLE DiaSemana(
 	DiaSemana_Id   INT         NOT NULL,
 	DiaSemana_Desc VARCHAR(13) NOT NULL,
 	PRIMARY KEY CLUSTERED (DiaSemana_Id ASC)
+);
+GO
+------ 17 -----------------------------------------------------------------------------
+-- Cuidado com Tabela
+CREATE TABLE FuncionarioEstabelecimento(
+	Funcionario_Id     INT NOT NULL,
+	Estabelecimento_Id INT NOT NULL,
+	PRIMARY KEY CLUSTERED (Funcionario_Id ASC, Estabelecimento_Id ASC)
 );
 GO
 /* FIM CRIAÇÃO DE OBJETOS */
@@ -160,9 +168,7 @@ GO
 ------ 2 ------------------------------------------------------------------------------
   ALTER TABLE Funcionario
     ADD CONSTRAINT FK_Funcionario_Endereco
-FOREIGN KEY (Endereco_Id) REFERENCES Endereco (Endereco_Id),
-        CONSTRAINT FK_Funcionario_Estabelecimento 
-FOREIGN KEY (Estabelecimento_Id) REFERENCES Estabelecimento (Estabelecimento_Id);
+FOREIGN KEY (Endereco_Id) REFERENCES Endereco (Endereco_Id);
 GO
 ------ 3 ------------------------------------------------------------------------------
   ALTER TABLE FuncionarioContato
@@ -216,4 +222,10 @@ FOREIGN KEY (Estabelecimento_Id) REFERENCES Estabelecimento (Estabelecimento_Id)
 	    CONSTRAINT FK_HorarioEstabelecimento_DiaSemana
 FOREIGN KEY (DiaSemana_Id) REFERENCES DiaSemana (DiaSemana_Id);
 GO
+------ 11 -----------------------------------------------------------------------------
+  ALTER TABLE FuncionarioEstabelecimento
+    ADD CONSTRAINT FK_FuncionarioEstabelecimento_Funcionario
+FOREIGN KEY (Funcionario_Id) REFERENCES Funcionario (Funcionario_Id),
+        CONSTRAINT FK_FuncionarioEstabelecimento_Estabelecimento
+FOREIGN KEY (Estabelecimento_Id) REFERENCES Estabelecimento (Estabelecimento_Id);
 /* FIM CRIANDO FKs */
