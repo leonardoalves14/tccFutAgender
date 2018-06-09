@@ -3,7 +3,7 @@
 CREATE TABLE Endereco(
 	Endereco_Id          INT          NOT NULL,
 	Endereco_Logradouro  VARCHAR(50)  NOT NULL,
-	Endereco_Numero      INT          NOT NULL,
+	Endereco_Numero      VARCHAR(10)  NOT NULL,
 	Endereco_Bairro      VARCHAR(50)  NOT NULL,
 	Endereco_Cidade      VARCHAR(100) NOT NULL,
 	Endereco_Estado      CHAR(2)      NOT NULL,
