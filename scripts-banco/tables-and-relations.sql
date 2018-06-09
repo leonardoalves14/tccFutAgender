@@ -15,10 +15,10 @@ GO
 CREATE TABLE Cliente(
     Cliente_Id           INT          NOT NULL,
 	Cliente_Nome         VARCHAR(255) NOT NULL,
-	Cliente_CPF			 VARCHAR(13)  NOT NULL,
-	Cliente_RG			 VARCHAR(14)  NOT NULL,
+	Cliente_CPF          VARCHAR(13)  NOT NULL,
+	Cliente_RG           VARCHAR(14)  NOT NULL,
 	Cliente_Email        VARCHAR(255) NOT NULL,
-	Cliente_DtNascimento DATETIME     NOT NULL,	
+	Cliente_DtNascimento DATETIME     NOT NULL,
 	Cliente_Telefone     VARCHAR(13)  NOT NULL,
 	Cliente_Celular      VARCHAR(13)  NOT NULL,
 	Endereco_Id          INT	      NOT NULL,
