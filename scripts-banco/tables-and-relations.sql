@@ -212,6 +212,8 @@ GO
     ADD CONSTRAINT FK_HorarioEstabelecimento_Horario
 FOREIGN KEY (Horario_Id) REFERENCES Horario (Horario_Id),
 	    CONSTRAINT FK_HorarioEstabelecimento_Estabelecimento
-FOREIGN KEY (Estabelecimento_Id) REFERENCES Estabelecimento (Estabelecimento_Id);
+FOREIGN KEY (Estabelecimento_Id) REFERENCES Estabelecimento (Estabelecimento_Id),
+	    CONSTRAINT FK_HorarioEstabelecimento_DiaSemana
+FOREIGN KEY (DiaSemana_Id) REFERENCES DiaSemana (DiaSemana_Id);
 GO
 /* FIM CRIANDO FKs */
