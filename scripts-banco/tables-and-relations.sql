@@ -91,7 +91,7 @@ GO
 CREATE TABLE AgendamentoCliente(
 	Agendamento_Id INT NOT NULL,
 	Cliente_Id     INT NOT NULL,
-	PRIMARY KEY CLUSTERED (Agendamento_Id ASC)
+	PRIMARY KEY CLUSTERED (Agendamento_Id ASC, Cliente_Id ASC)
 );
 GO
 ------ 11 -----------------------------------------------------------------------------
@@ -116,29 +116,27 @@ GO
 ------ 13 -----------------------------------------------------------------------------
 -- Cuidado com Tabela
 CREATE TABLE AgendaEstabelecimento(
-	Agendamento_Id                  INT      NOT NULL,
-	Estabelecimento_Id              INT      NOT NULL,
-	AgendaEstabelecimento_HrInicio  DATETIME NOT NULL,
-	AgendaEstabelecimento_HrFim     DATETIME NOT NULL,
+	Agendamento_Id            INT      NOT NULL,
+	Estabelecimento_Id        INT      NOT NULL,
+	AgendaEstabelecimento_Dia DATETIME NOT NULL,
 	PRIMARY KEY CLUSTERED (Agendamento_Id ASC, Estabelecimento_Id ASC)
 );
 GO
 ------ 14 -----------------------------------------------------------------------------
 -- Cuidado com Tabela
 CREATE TABLE Horario(
-	Horario_Id  INT      NOT NULL,
-	Horario_De  DATETIME NOT NULL,
-	Horario_Ate DATETIME NOT NULL,
+	Horario_Id  INT     NOT NULL,
+	Horario_De  TIME(0) NOT NULL,--DATETIME
+	Horario_Ate TIME(0) NOT NULL,--DATETIME
 	PRIMARY KEY CLUSTERED (Horario_Id ASC)
 );
 GO
 ------ 15 -----------------------------------------------------------------------------
 -- Cuidado com Tabela
-CREATE TABLE HorarioEstabelecimento(
-	Horario_Id		   INT NOT NULL,
-	Estabelecimento_Id INT NOT NULL,
-	DiaSemana_Id	   INT NOT NULL,
-	PRIMARY KEY CLUSTERED (Horario_Id ASC, Estabelecimento_Id ASC, DiaSemana_Id ASC)
+CREATE TABLE HorarioDiaSemana(
+	Horario_Id   INT NOT NULL,
+	DiaSemana_Id INT NOT NULL,
+	PRIMARY KEY CLUSTERED (Horario_Id ASC, DiaSemana_Id ASC)
 );
 GO
 ------ 16 -----------------------------------------------------------------------------
@@ -214,12 +212,10 @@ FOREIGN KEY (Agendamento_Id) REFERENCES Agendamento (Agendamento_Id),
 FOREIGN KEY (Estabelecimento_Id) REFERENCES Estabelecimento (Estabelecimento_Id);
 GO
 ------ 10 -----------------------------------------------------------------------------
-  ALTER TABLE HorarioEstabelecimento
-    ADD CONSTRAINT FK_HorarioEstabelecimento_Horario
+  ALTER TABLE HorarioDiaSemana
+    ADD CONSTRAINT FK_HorarioDiaSemana_Horario
 FOREIGN KEY (Horario_Id) REFERENCES Horario (Horario_Id),
-	    CONSTRAINT FK_HorarioEstabelecimento_Estabelecimento
-FOREIGN KEY (Estabelecimento_Id) REFERENCES Estabelecimento (Estabelecimento_Id),
-	    CONSTRAINT FK_HorarioEstabelecimento_DiaSemana
+	    CONSTRAINT FK_HorarioDiaSemana_DiaSemana
 FOREIGN KEY (DiaSemana_Id) REFERENCES DiaSemana (DiaSemana_Id);
 GO
 ------ 11 -----------------------------------------------------------------------------
