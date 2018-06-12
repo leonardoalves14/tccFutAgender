@@ -66,8 +66,8 @@ GO
 ------ 7 ------------------------------------------------------------------------------
 CREATE TABLE Usuario(
 	Usuario_Id     INT         NOT NULL,
-	Usuario_Login  VARCHAR(10) NOT NULL,
-	Usuario_Senha  VARCHAR(20) NOT NULL,
+	Usuario_Login  VARCHAR(50) NOT NULL,
+	Usuario_Senha  VARCHAR(50) NOT NULL,
 	PRIMARY KEY CLUSTERED (Usuario_Id ASC)
 );
 GO
