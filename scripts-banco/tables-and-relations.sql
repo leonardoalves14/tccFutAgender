@@ -82,7 +82,8 @@ GO
 ------ 9 ------------------------------------------------------------------------------
 CREATE TABLE Agendamento(
 	Agendamento_Id        INT          NOT NULL,
-	Agendamento_Descricao VARCHAR(200) NOT NULL,		
+	Agendamento_Descricao VARCHAR(200) NOT NULL,
+	Agendamento_Data      DATETIME     NOT NULL,
 	PRIMARY KEY CLUSTERED (Agendamento_Id ASC)
 );
 GO
@@ -118,7 +119,6 @@ GO
 CREATE TABLE AgendaEstabelecimento(
 	Agendamento_Id            INT      NOT NULL,
 	Estabelecimento_Id        INT      NOT NULL,
-	AgendaEstabelecimento_Dia DATETIME NOT NULL,
 	PRIMARY KEY CLUSTERED (Agendamento_Id ASC, Estabelecimento_Id ASC)
 );
 GO
@@ -133,10 +133,10 @@ CREATE TABLE Horario(
 GO
 ------ 15 -----------------------------------------------------------------------------
 -- Cuidado com Tabela
-CREATE TABLE HorarioDiaSemana(
-	Horario_Id   INT NOT NULL,
-	DiaSemana_Id INT NOT NULL,
-	PRIMARY KEY CLUSTERED (Horario_Id ASC, DiaSemana_Id ASC)
+CREATE TABLE DiaSemanaHorario(
+    DiaSemana_Id INT NOT NULL,
+	Horario_Id   INT NOT NULL,	
+	PRIMARY KEY CLUSTERED (DiaSemana_Id ASC, Horario_Id ASC)
 );
 GO
 ------ 16 -----------------------------------------------------------------------------
@@ -155,9 +155,18 @@ CREATE TABLE FuncionarioEstabelecimento(
 	PRIMARY KEY CLUSTERED (Funcionario_Id ASC, Estabelecimento_Id ASC)
 );
 GO
+------ 18 -----------------------------------------------------------------------------
+-- Cuidado com Tabela
+CREATE TABLE AgendaHorarioDiaSemana(
+	Agendamento_Id INT NOT NULL,
+	DiaSemana_Id   INT NOT NULL,
+	Horario_Id     INT NOT NULL,
+    PRIMARY KEY CLUSTERED (Agendamento_Id ASC, DiaSemana_Id ASC, Horario_Id ASC)
+);
+GO
 /* FIM CRIAÇÃO DE OBJETOS */
 
-/* CRIANDO FKs */
+/* CRIAÇÃO DE FKs */
 ------ 1 ------------------------------------------------------------------------------
   ALTER TABLE Cliente
     ADD CONSTRAINT FK_Cliente_Endereco 
@@ -212,11 +221,11 @@ FOREIGN KEY (Agendamento_Id) REFERENCES Agendamento (Agendamento_Id),
 FOREIGN KEY (Estabelecimento_Id) REFERENCES Estabelecimento (Estabelecimento_Id);
 GO
 ------ 10 -----------------------------------------------------------------------------
-  ALTER TABLE HorarioDiaSemana
-    ADD CONSTRAINT FK_HorarioDiaSemana_Horario
-FOREIGN KEY (Horario_Id) REFERENCES Horario (Horario_Id),
-	    CONSTRAINT FK_HorarioDiaSemana_DiaSemana
-FOREIGN KEY (DiaSemana_Id) REFERENCES DiaSemana (DiaSemana_Id);
+  ALTER TABLE DiaSemanaHorario
+    ADD CONSTRAINT FK_DiaSemanaHorario_DiaSemana
+FOREIGN KEY (DiaSemana_Id) REFERENCES DiaSemana (DiaSemana_Id),
+        CONSTRAINT FK_DiaSemanaHorario_Horario
+FOREIGN KEY (Horario_Id) REFERENCES Horario (Horario_Id);
 GO
 ------ 11 -----------------------------------------------------------------------------
   ALTER TABLE FuncionarioEstabelecimento
@@ -224,4 +233,13 @@ GO
 FOREIGN KEY (Funcionario_Id) REFERENCES Funcionario (Funcionario_Id),
         CONSTRAINT FK_FuncionarioEstabelecimento_Estabelecimento
 FOREIGN KEY (Estabelecimento_Id) REFERENCES Estabelecimento (Estabelecimento_Id);
-/* FIM CRIANDO FKs */
+------ 12 -----------------------------------------------------------------------------
+  ALTER TABLE AgendaHorarioDiaSemana
+    ADD CONSTRAINT FK_AgendaHorarioDiaSemana_Agendamento
+FOREIGN KEY (Agendamento_Id) REFERENCES Agendamento (Agendamento_Id),
+        CONSTRAINT FK_AgendaHorarioDiaSemana_DiaSemana
+FOREIGN KEY (DiaSemana_Id) REFERENCES DiaSemana (DiaSemana_Id),
+	    CONSTRAINT FK_AgendaHorarioDiaSemana_Horario
+FOREIGN KEY (Horario_Id) REFERENCES Horario (Horario_Id);
+GO
+/* FIM CRIAÇÃO DE FKs */
