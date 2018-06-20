@@ -1,0 +1,137 @@
+using Dapper;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Transactions;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+
+namespace WManutencao.RepositoryApp.Base
+{
+    public abstract class Base : IDisposable
+    {
+        private static Dictionary<Type, XmlSerializer> _xmlSerializer = new Dictionary<Type, XmlSerializer>();
+
+        internal string ConnectionString = System.Configuration.ConfigurationManager.ConnectionStrings["WManutencaoRepositoryApp"].ToString();
+
+        public void ExecuteSP(string procedureName, DynamicParameters parameters = null)
+        {
+            using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Snapshot }))
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+                {
+                    sqlConnection.Open();
+                    if (parameters == null)
+                        sqlConnection.Execute(procedureName, commandType: System.Data.CommandType.StoredProcedure);
+                    else
+                        sqlConnection.Execute(procedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                }
+
+                transactionScope.Complete();
+            }
+        }
+
+        /// <summary>
+        /// Esse método utiliza a variável "parameters" por referência, para que funcione os parametros do tipo "InputOutput"
+        /// </summary>
+        public void ExecuteSP(string procedureName, ref DynamicParameters parameters)
+        {
+            using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Snapshot }))
+            {
+                using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+                {
+                    sqlConnection.Open();
+                    sqlConnection.Execute(procedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                }
+
+                transactionScope.Complete();
+            }
+        }
+
+        public List<T> ExecuteSP<T>(string procedureName, DynamicParameters parameters = null, IsolationLevel isolationLevel = IsolationLevel.Snapshot)
+        {
+            List<T> ret = new List<T>();
+
+            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = isolationLevel }))
+            {
+                using (var sqlConnection = new System.Data.SqlClient.SqlConnection(ConnectionString))
+                {
+                    sqlConnection.Open();
+
+                    if (parameters == null)
+                        ret = sqlConnection.Query<T>(procedureName).ToList<T>();
+                    else
+                        ret = sqlConnection.Query<T>(procedureName, parameters, commandType: System.Data.CommandType.StoredProcedure).ToList<T>();
+                }
+
+                transactionScope.Complete();
+            }
+
+            return ret;
+        }
+
+        //METHOD FOR MAPPING 1-N
+        public List<dynamic> ExecuteSP(DynamicParameters parameters = null, string procedureName = "")
+        {
+            var ret = new List<dynamic>();
+
+            using (var transactionScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Snapshot }))
+            {
+                using (var sqlConnection = new System.Data.SqlClient.SqlConnection(ConnectionString))
+                {
+                    sqlConnection.Open();
+
+                    if (parameters == null)
+                        ret = sqlConnection.Query<dynamic>(procedureName).ToList();
+                    else
+                        ret = sqlConnection.Query<dynamic>(procedureName, parameters, commandType: System.Data.CommandType.StoredProcedure).ToList();
+                }
+
+                transactionScope.Complete();
+            }
+
+            return ret;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+
+        internal List<object> ParseXMLToList(string xml, Type type)
+        {
+            List<object> list = new List<object>();
+
+            if (!string.IsNullOrEmpty(xml))
+            {
+                XDocument doc = XDocument.Parse(xml);
+                IEnumerable<XNode> nodes = doc.Root.Nodes();
+
+                foreach (var xe in nodes)
+                {
+                    list.Add(GetSerializer(type).Deserialize(xe.CreateReader()));
+                }
+            }
+            return list;
+        }
+
+        private XmlSerializer GetSerializer(Type type)
+        {
+            XmlSerializer serializer;
+
+            if (!_xmlSerializer.TryGetValue(type, out serializer))
+            {
+                serializer = new XmlSerializer(type);
+                _xmlSerializer.Add(type, serializer);
+            }
+
+            return serializer;
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+        }
+    }
+}
