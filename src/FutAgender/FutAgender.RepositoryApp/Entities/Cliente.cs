@@ -15,6 +15,7 @@ namespace FutAgender.RepositoryApp.Entities
         public int EnderecoId { get; set; }
         public string EnderecoLogradouro { get; set; }
         public string EnderecoNumero { get; set; }
+        public string EnderecoBairro { get; set; }
         public string EnderecoCidade { get; set; }
         public string EnderecoEstado { get; set; }
         public string EnderecoComplemento { get; set; }

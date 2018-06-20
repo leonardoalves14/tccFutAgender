@@ -2,25 +2,30 @@
 using FutAgender.RepositoryApp.Abstract;
 using FutAgender.RepositoryApp.Entities;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.SqlClient;
-using System.Threading.Tasks;
 
 namespace FutAgender.RepositoryApp.Concrete
 {
     public class ClienteRepository : IClienteRepository
     {
-        public async Task<List<Cliente>> GetClientes()
+        public List<Cliente> GetClientes()
         {
             var clientes = new List<Cliente>();
-
-            using (SqlConnection conn = new SqlConnection())
+            try
             {
-                await conn.OpenAsync();
+                using (SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["SocietyAgendorDb"].ConnectionString))
+                {
+                    conn.Open();
+                    clientes.AddRange(conn.Query<Cliente>("spsCliente"));
+                }
 
-                clientes.AddRange(await conn.QueryAsync<Cliente>("spsCliente"));
+                return clientes;
             }
-
-            return clientes;
+            catch (SqlException e)
+            {
+                throw e;
+            }
         }
     }
 }
