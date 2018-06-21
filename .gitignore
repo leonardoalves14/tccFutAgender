@@ -49,9 +49,9 @@ dlldata.c
 BenchmarkDotNet.Artifacts/
 
 # .NET Core
-project.lock.json
-project.fragment.lock.json
-artifacts/
+#project.lock.json --> ADICIONADO COMENTARIO
+#project.fragment.lock.json --> ADICIONADO COMENTARIO
+#artifacts/ --> ADICIONADO COMENTARIO
 **/Properties/launchSettings.json
 
 # StyleCop
