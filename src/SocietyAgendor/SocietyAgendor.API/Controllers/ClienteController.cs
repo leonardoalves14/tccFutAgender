@@ -20,13 +20,13 @@ namespace SocietyAgendor.API.Controllers
         public IActionResult GetAllClientes()
         {
             var result = new List<ClienteModel>();
-            var list = _clienteRepository.GetAllClientes();            
+            var list = _clienteRepository.GetAllClientes();
 
             foreach (var item in list)
             {
                 result.Add(new ClienteModel
                 {
-                    Cliente_Id = item.ClienteId,
+                    Cliente_Id = (int)item.ClienteId,
                     Cliente_Nome = item.ClienteNome,
                     Cliente_CPF = item.ClienteCPF,
                     Cliente_RG = item.ClienteRG,
@@ -34,7 +34,7 @@ namespace SocietyAgendor.API.Controllers
                     Cliente_Email = item.ClienteEmail,
                     Cliente_Celular = item.ClienteCelular,
                     Cliente_Telefone = item.ClienteTelefone,
-                    Endereco_Id = item.EnderecoId,
+                    Endereco_Id = (int)item.EnderecoId,
                     Endereco_Logradouro = item.EnderecoLogradouro,
                     Endereco_Numero = item.EnderecoNumero,
                     Endereco_Bairro = item.EnderecoBairro,
@@ -43,7 +43,7 @@ namespace SocietyAgendor.API.Controllers
                     Endereco_Cidade = item.EnderecoCidade,
                     Endereco_Estado = item.EnderecoEstado
                 });
-            } 
+            }
 
             return Ok(result);
         }
@@ -58,7 +58,6 @@ namespace SocietyAgendor.API.Controllers
 
             var cliente = new Cliente
             {
-                //ClienteId = model.Cliente_Id,
                 ClienteNome = model.Cliente_Nome,
                 ClienteCPF = model.Cliente_CPF,
                 ClienteRG = model.Cliente_RG,
@@ -66,7 +65,6 @@ namespace SocietyAgendor.API.Controllers
                 ClienteEmail = model.Cliente_Email,
                 ClienteCelular = model.Cliente_Celular,
                 ClienteTelefone = model.Cliente_Telefone,
-                //EnderecoId = model.Endereco_Id,
                 EnderecoLogradouro = model.Endereco_Logradouro,
                 EnderecoNumero = model.Endereco_Numero,
                 EnderecoBairro = model.Endereco_Bairro,
@@ -79,6 +77,44 @@ namespace SocietyAgendor.API.Controllers
             var newcliente = _clienteRepository.CreateCliente(cliente);
 
             return Ok(newcliente);
+        }
+
+        [HttpPut("{clienteId}")]
+        public IActionResult UpdateCliente(int clienteId, [FromBody] ClienteModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (!_clienteRepository.ClienteExists(clienteId))
+            {
+                return NotFound($"Cliente {clienteId} não existe!");
+            }
+
+            var cliente = new Cliente
+            {
+                ClienteId = model.Cliente_Id,
+                ClienteNome = model.Cliente_Nome,
+                ClienteCPF = model.Cliente_CPF,
+                ClienteRG = model.Cliente_RG,
+                ClienteDtNascimento = model.Cliente_DtNascimento,
+                ClienteEmail = model.Cliente_Email,
+                ClienteCelular = model.Cliente_Celular,
+                ClienteTelefone = model.Cliente_Telefone,
+                EnderecoId = model.Endereco_Id,
+                EnderecoLogradouro = model.Endereco_Logradouro,
+                EnderecoNumero = model.Endereco_Numero,
+                EnderecoBairro = model.Endereco_Bairro,
+                EnderecoComplemento = model.Endereco_Complemento,
+                EnderecoCEP = model.Endereco_CEP,
+                EnderecoCidade = model.Endereco_Cidade,
+                EnderecoEstado = model.Endereco_Estado
+            };
+
+            _clienteRepository.UpdateCliente(cliente);
+
+            return NoContent();
         }
     }
 }

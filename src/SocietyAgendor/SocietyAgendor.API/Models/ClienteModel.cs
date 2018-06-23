@@ -4,7 +4,7 @@ namespace SocietyAgendor.API.Models
 {
     public class ClienteModel
     {
-        public int Cliente_Id { get; set; }
+        public int? Cliente_Id { get; set; }
         public string Cliente_Nome { get; set; }
         public string Cliente_CPF { get; set; }
         public string Cliente_RG { get; set; }
@@ -12,7 +12,7 @@ namespace SocietyAgendor.API.Models
         public DateTime Cliente_DtNascimento { get; set; }
         public string Cliente_Telefone { get; set; }
         public string Cliente_Celular { get; set; }
-        public int Endereco_Id { get; set; }
+        public int? Endereco_Id { get; set; }
         public string Endereco_Logradouro { get; set; }
         public string Endereco_Numero { get; set; }
         public string Endereco_Bairro { get; set; }
