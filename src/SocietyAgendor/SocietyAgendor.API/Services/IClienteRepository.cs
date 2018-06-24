@@ -8,6 +8,8 @@ namespace SocietyAgendor.API.Services
         List<Cliente> GetAllClientes();
         Cliente CreateCliente(Cliente model);
         void UpdateCliente(Cliente model);
+        void DeleteCliente(int clienteId);
         bool ClienteExists(int clienteId);
+
     }
 }

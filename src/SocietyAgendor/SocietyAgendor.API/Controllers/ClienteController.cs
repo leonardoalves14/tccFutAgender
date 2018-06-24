@@ -116,5 +116,18 @@ namespace SocietyAgendor.API.Controllers
 
             return NoContent();
         }
+
+        [HttpDelete("{clienteId}")]
+        public IActionResult DeleteCliente(int clienteId)
+        {
+            if (!_clienteRepository.ClienteExists(clienteId))
+            {
+                return NotFound($"Cliente {clienteId} não existe!");
+            }
+
+            _clienteRepository.DeleteCliente(clienteId);
+
+            return NoContent();
+        }
     }
 }

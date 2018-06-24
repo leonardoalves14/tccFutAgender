@@ -28,6 +28,7 @@ namespace SocietyAgendor.API
             // Dependency Injection
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddTransient<IClienteRepository, ClienteRepository>();
+            services.AddTransient<IEnderecoRepository, EnderecoRepository>();
 
         }
         

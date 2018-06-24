@@ -9,9 +9,7 @@ namespace SocietyAgendor.API.Concrete
 {
     public class ClienteRepository : Base.Base, IClienteRepository
     {
-        public ClienteRepository(IConfiguration configuration) : base(configuration)
-        {
-        }                
+        public ClienteRepository(IConfiguration configuration) : base(configuration) { }
 
         public List<Cliente> GetAllClientes()
         {
@@ -68,13 +66,21 @@ namespace SocietyAgendor.API.Concrete
             ExecuteSP("spuCliente", parameters);
         }
 
+        public void DeleteCliente(int clienteId)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@Cliente_Id", clienteId, System.Data.DbType.Int32);
+
+            ExecuteSP("spdCliente", parameters);
+        }
+
         public bool ClienteExists(int clienteId)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@Cliente_Id", clienteId, System.Data.DbType.Int32);
 
-            var cliente = new List<ClienteExists>();
-            var list = ExecuteSP<ClienteExists>("speCliente", parameters);
+            var cliente = new List<HelperEntity>();
+            var list = ExecuteSP<HelperEntity>("speCliente", parameters);
 
             foreach (var item in list)
             {
@@ -82,13 +88,9 @@ namespace SocietyAgendor.API.Concrete
             }
 
             if (cliente.FirstOrDefault().Exists)
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
     }
 }
