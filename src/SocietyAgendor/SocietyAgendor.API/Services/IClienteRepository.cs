@@ -10,6 +10,5 @@ namespace SocietyAgendor.API.Services
         void UpdateCliente(Cliente model);
         void DeleteCliente(int clienteId);
         bool ClienteExists(int clienteId);
-
     }
 }

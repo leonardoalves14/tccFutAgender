@@ -20,7 +20,7 @@ namespace SocietyAgendor.API
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }                
+        public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
@@ -31,7 +31,7 @@ namespace SocietyAgendor.API
             services.AddTransient<IEnderecoRepository, EnderecoRepository>();
 
         }
-        
+
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
