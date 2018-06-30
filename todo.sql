@@ -4,4 +4,7 @@
 -- Cargo           -> CRUD/E
 -- Funcionario     -> CRUD/E
 -- Estabelecimento -> CRUD/E
--- Usuario         -> CRUD
+-- Usuario         -> CRUD/ spuSenha
+-- Horário         -> CRUD
+-- Agendamento     -> CRD
+
