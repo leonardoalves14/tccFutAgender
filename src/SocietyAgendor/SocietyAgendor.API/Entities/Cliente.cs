@@ -21,9 +21,4 @@ namespace SocietyAgendor.API.Entities
         public string EnderecoComplemento { get; set; }
         public string EnderecoCEP { get; set; }
     }
-
-    public class ClienteExists
-    {
-        public bool Exists { get; set; }
-    }
 }

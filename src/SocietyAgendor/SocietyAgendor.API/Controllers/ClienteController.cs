@@ -74,9 +74,11 @@ namespace SocietyAgendor.API.Controllers
                 EnderecoEstado = model.Endereco_Estado
             };
 
-            var newcliente = _clienteRepository.CreateCliente(cliente);
+            var newCliente = _clienteRepository.CreateCliente(cliente);
 
-            return Ok(newcliente);
+            model.Cliente_Id = newCliente.ClienteId;
+
+            return Ok(model);
         }
 
         [HttpPut("{clienteId}")]

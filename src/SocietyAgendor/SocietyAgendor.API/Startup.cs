@@ -29,6 +29,8 @@ namespace SocietyAgendor.API
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddTransient<IClienteRepository, ClienteRepository>();
             services.AddTransient<IEnderecoRepository, EnderecoRepository>();
+            services.AddTransient<ICargoRepository, CargoRepository>();
+            services.AddTransient<IEstabelecimentoRepository, EstabelecimentoRepository>();
 
         }
 

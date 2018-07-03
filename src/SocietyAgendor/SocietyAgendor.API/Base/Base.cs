@@ -19,7 +19,7 @@ namespace SocietyAgendor.API.Base
 
         public void ExecuteSP(string procedureName, DynamicParameters parameters = null)
         {
-            //using (TransactionScope transaction = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Snapshot }))
+            //using (var transaction = new TransactionScope())
             //{
             using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
             {
@@ -37,7 +37,7 @@ namespace SocietyAgendor.API.Base
 
         public void ExecuteSP(string procedureName, ref DynamicParameters parameters)
         {
-            //using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Snapshot }))
+            //using (var transactionScope = new TransactionScope())
             //{
             using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
             {
@@ -54,7 +54,7 @@ namespace SocietyAgendor.API.Base
         {
             List<T> ret = new List<T>();
 
-            //using (TransactionScope transactionScope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Snapshot }))
+            //using (var transactionScope = new TransactionScope())
             //{
             using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
             {
@@ -68,7 +68,6 @@ namespace SocietyAgendor.API.Base
 
             //    transactionScope.Complete();
             //}
-
 
             return ret;
         }
