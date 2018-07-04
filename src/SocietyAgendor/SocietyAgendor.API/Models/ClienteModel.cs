@@ -50,8 +50,7 @@ namespace SocietyAgendor.API.Models
         [Required]
         [StringLength(2, ErrorMessage = "É permitido até 2 caracteres.")]
         public string Endereco_Estado { get; set; }
-
-        [Required]
+                
         [StringLength(100, ErrorMessage = "É permitido até 100 caracteres.")]
         public string Endereco_Complemento { get; set; }
 
