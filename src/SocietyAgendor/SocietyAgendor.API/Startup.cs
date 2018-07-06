@@ -32,6 +32,7 @@ namespace SocietyAgendor.API
             services.AddTransient<ICargoRepository, CargoRepository>();
             services.AddTransient<IEstabelecimentoRepository, EstabelecimentoRepository>();
             services.AddTransient<IFuncionarioRepository, FuncionarioRepository>();
+            services.AddTransient<IHorarioRepository, HorarioRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
