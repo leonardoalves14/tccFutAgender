@@ -6,6 +6,8 @@ using SocietyAgendor.API.Services;
 
 namespace SocietyAgendor.API.Controllers
 {
+    // TODO: RETORNAR 1 CARGO
+
     [Route("api/cargos")]
     public class CargoController : Controller
     {
@@ -70,7 +72,7 @@ namespace SocietyAgendor.API.Controllers
 
             var cargo = new Cargo
             {
-                CargoId = (int)model.Cargo_Id,
+                CargoId = model.Cargo_Id,
                 CargoDesc = model.Cargo_Desc
             };
 

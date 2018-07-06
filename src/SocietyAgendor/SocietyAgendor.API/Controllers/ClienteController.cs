@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 namespace SocietyAgendor.API.Controllers
 {
+    // TODO: RETORNAR 1 CLIENTE
+
     [Route("api/clientes")]
     public class ClienteController : Controller
     {
@@ -26,7 +28,7 @@ namespace SocietyAgendor.API.Controllers
             {
                 result.Add(new ClienteModel
                 {
-                    Cliente_Id = (int)item.ClienteId,
+                    Cliente_Id = item.ClienteId,
                     Cliente_Nome = item.ClienteNome,
                     Cliente_CPF = item.ClienteCPF,
                     Cliente_RG = item.ClienteRG,
@@ -34,7 +36,7 @@ namespace SocietyAgendor.API.Controllers
                     Cliente_Email = item.ClienteEmail,
                     Cliente_Celular = item.ClienteCelular,
                     Cliente_Telefone = item.ClienteTelefone,
-                    Endereco_Id = (int)item.EnderecoId,
+                    Endereco_Id = item.EnderecoId,
                     Endereco_Logradouro = item.EnderecoLogradouro,
                     Endereco_Numero = item.EnderecoNumero,
                     Endereco_Bairro = item.EnderecoBairro,

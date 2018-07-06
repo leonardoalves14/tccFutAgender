@@ -6,6 +6,8 @@ using System.Collections.Generic;
 
 namespace SocietyAgendor.API.Controllers
 {
+    // TODO: RETORNAR 1 ESTABELECIMENTO
+
     [Route("api/estabelecimentos")]
     public class EstabelecimentoController : Controller
     {
@@ -93,13 +95,13 @@ namespace SocietyAgendor.API.Controllers
 
             var estabelecimento = new Estabelecimento
             {
-                EstabelecimentoId = (int)model.Estabelecimento_Id,
+                EstabelecimentoId = model.Estabelecimento_Id,
                 EstabelecimentoNome = model.Estabelecimento_Nome,
                 EstabelecimentoCNPJ = model.Estabelecimento_CNPJ,
                 EstabelecimentoCelular = model.Estabelecimento_Celular,
                 EstabelecimentoTelefone = model.Estabelecimento_Telefone,
                 EstabelecimentoEmail = model.Estabelecimento_Email,
-                EnderecoId = (int)model.Endereco_Id,
+                EnderecoId = model.Endereco_Id,
                 EnderecoNumero = model.Endereco_Numero,
                 EnderecoLogradouro = model.Endereco_Logradouro,
                 EnderecoComplemento = model.Endereco_Complemento,

@@ -31,7 +31,7 @@ namespace SocietyAgendor.API
             services.AddTransient<IEnderecoRepository, EnderecoRepository>();
             services.AddTransient<ICargoRepository, CargoRepository>();
             services.AddTransient<IEstabelecimentoRepository, EstabelecimentoRepository>();
-
+            services.AddTransient<IFuncionarioRepository, FuncionarioRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
