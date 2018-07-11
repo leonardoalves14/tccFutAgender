@@ -19,55 +19,60 @@ namespace SocietyAgendor.API.Base
 
         public void ExecuteSP(string procedureName, DynamicParameters parameters = null)
         {
-            //using (var transaction = new TransactionScope())
-            //{
             using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
             {
                 sqlConnection.Open();
+                var transacao = sqlConnection.BeginTransaction();
+                try
+                {
+                    if (parameters == null)
+                        sqlConnection.Execute(procedureName, commandType: System.Data.CommandType.StoredProcedure, transaction: transacao);
+                    else
+                        sqlConnection.Execute(procedureName, parameters, commandType: System.Data.CommandType.StoredProcedure, transaction: transacao);
 
-                if (parameters == null)
-                    sqlConnection.Execute(procedureName, commandType: System.Data.CommandType.StoredProcedure);
-                else
-                    sqlConnection.Execute(procedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    throw new Exception($"ROLLBACK NA TRANSAÇÃO\t Exception: ${ex.ToString()}\t");
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
             }
-
-            //    transaction.Complete();
-            //}
-        }
-
-        public void ExecuteSP(string procedureName, ref DynamicParameters parameters)
-        {
-            //using (var transactionScope = new TransactionScope())
-            //{
-            using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
-            {
-                sqlConnection.Open();
-                sqlConnection.ExecuteAsync(procedureName, parameters, commandType: System.Data.CommandType.StoredProcedure);
-            }
-
-            //    transactionScope.Complete();
-            //}
-
         }
 
         public List<T> ExecuteSP<T>(string procedureName, DynamicParameters parameters = null, IsolationLevel isolationLevel = IsolationLevel.Snapshot)
         {
             List<T> ret = new List<T>();
 
-            //using (var transactionScope = new TransactionScope())
-            //{
             using (SqlConnection sqlConnection = new SqlConnection(_connectionString))
             {
                 sqlConnection.Open();
-
-                if (parameters == null)
-                    ret = sqlConnection.Query<T>(procedureName).ToList<T>();
-                else
-                    ret = sqlConnection.Query<T>(procedureName, parameters, commandType: System.Data.CommandType.StoredProcedure).ToList<T>();
+                var transacao = sqlConnection.BeginTransaction();
+                try
+                {
+                    if (parameters == null)
+                        ret = sqlConnection.Query<T>(procedureName, transaction: transacao).ToList<T>();
+                    else
+                        ret = sqlConnection.Query<T>(procedureName,
+                                                     parameters,
+                                                     transaction: transacao,
+                                                     commandType: System.Data.CommandType.StoredProcedure).ToList<T>();
+                    transacao.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transacao.Rollback();
+                    throw new Exception($"ROLLBACK NA TRANSAÇÃO\t Exception: ${ex.ToString()}\t");
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                }
             }
-
-            //    transactionScope.Complete();
-            //}
 
             return ret;
         }
