@@ -35,7 +35,7 @@ namespace SocietyAgendor.API.Base
                 catch (Exception ex)
                 {
                     transacao.Rollback();
-                    throw new Exception($"ROLLBACK NA TRANSAÇÃO\t Exception: ${ex.ToString()}\t");
+                    throw new Exception($"**************\nROLLBACK NA TRANSAÇÃO \nException: {ex.ToString()}\n**************\n");
                 }
                 finally
                 {
@@ -66,7 +66,7 @@ namespace SocietyAgendor.API.Base
                 catch (Exception ex)
                 {
                     transacao.Rollback();
-                    throw new Exception($"ROLLBACK NA TRANSAÇÃO\t Exception: ${ex.ToString()}\t");
+                    throw new Exception($"**************\nROLLBACK NA TRANSAÇÃO \nException: {ex.ToString()}\n**************\n");
                 }
                 finally
                 {
