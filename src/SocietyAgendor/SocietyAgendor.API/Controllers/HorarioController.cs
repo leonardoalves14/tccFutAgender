@@ -61,7 +61,7 @@ namespace SocietyAgendor.API.Controllers
             return Ok(model);
         }
 
-        [HttpPut("horarioId")]
+        [HttpPut("{horarioId}")]
         public IActionResult UpdateHorario(int horarioId, [FromBody] HorarioModel model)
         {
             if (!ModelState.IsValid)
@@ -76,13 +76,16 @@ namespace SocietyAgendor.API.Controllers
                 HorarioAte = model.Horario_Ate,
                 DiaSemanaId = model.DiaSemana_Id
             };
+
+            _horarioRepository.UpdateHorario(horario);
+
             return NoContent();
         }
 
-        [HttpDelete("horarioId")]
-        public IActionResult DeleteHorario(int horarioId)
+        [HttpDelete("{horarioId}")]
+        public IActionResult DeleteHorario(int horarioId, [FromBody] HorarioModel model)
         {
-            _horarioRepository.DeleteHorario(horarioId);
+            _horarioRepository.DeleteHorario((int)model.Horario_Id, (int)model.DiaSemana_Id);
 
             return NoContent();
         }
