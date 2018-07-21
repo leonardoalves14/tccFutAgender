@@ -77,7 +77,6 @@ namespace SocietyAgendor.API.Controllers
             };
 
             var newCliente = _clienteRepository.CreateCliente(cliente);
-
             model.Cliente_Id = newCliente.ClienteId;
 
             return Ok(model);

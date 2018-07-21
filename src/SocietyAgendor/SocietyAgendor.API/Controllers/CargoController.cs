@@ -50,9 +50,7 @@ namespace SocietyAgendor.API.Controllers
             };
 
             var newCargo = _cargoRepository.CreateCargo(cargo);
-
             model.Cargo_Id = newCargo.CargoId;
-            model.Cargo_Desc = newCargo.CargoDesc;
 
             return Ok(model);
         }

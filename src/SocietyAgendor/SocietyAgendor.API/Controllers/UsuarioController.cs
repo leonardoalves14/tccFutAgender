@@ -50,7 +50,6 @@ namespace SocietyAgendor.API.Controllers
             };
 
             var newUsuario = _usuarioRepository.CreateUsuario(usuario);
-
             model.Usuario_Id = newUsuario.UsuarioId;
             model.Usuario_Login = newUsuario.UsuarioLogin;
 

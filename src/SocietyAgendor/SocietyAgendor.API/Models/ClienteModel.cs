@@ -8,7 +8,7 @@ namespace SocietyAgendor.API.Models
         public int? Cliente_Id { get; set; }
 
         [Required]
-        [StringLength(255, ErrorMessage = "É permitido até 255 caracteres.")]
+        [MaxLength(255, ErrorMessage = "É permitido até 255 caracteres.")]
         public string Cliente_Nome { get; set; }
 
         [Required]
@@ -33,25 +33,25 @@ namespace SocietyAgendor.API.Models
         public int? Endereco_Id { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "É permitido até 50 caracteres.")]
+        [MaxLength(50, ErrorMessage = "É permitido até 50 caracteres.")]
         public string Endereco_Logradouro { get; set; }
 
         [Required]
         public string Endereco_Numero { get; set; }
 
         [Required]
-        [StringLength(50, ErrorMessage = "É permitido até 50 caracteres.")]
+        [MaxLength(50, ErrorMessage = "É permitido até 50 caracteres.")]
         public string Endereco_Bairro { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "É permitido até 100 caracteres.")]
+        [MaxLength(100, ErrorMessage = "É permitido até 100 caracteres.")]
         public string Endereco_Cidade { get; set; }
 
         [Required]
-        [StringLength(2, ErrorMessage = "É permitido até 2 caracteres.")]
+        [MaxLength(2, ErrorMessage = "É permitido até 2 caracteres.")]
         public string Endereco_Estado { get; set; }
                 
-        [StringLength(100, ErrorMessage = "É permitido até 100 caracteres.")]
+        [MaxLength(100, ErrorMessage = "É permitido até 100 caracteres.")]
         public string Endereco_Complemento { get; set; }
 
         [Required]

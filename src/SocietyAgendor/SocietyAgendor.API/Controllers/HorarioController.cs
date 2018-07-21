@@ -55,7 +55,6 @@ namespace SocietyAgendor.API.Controllers
             };
 
             var newHorario = _horarioRepository.CreateHorario(horario);
-
             model.Horario_Id = newHorario.HorarioId;
 
             return Ok(model);

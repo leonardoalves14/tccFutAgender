@@ -88,7 +88,6 @@ namespace SocietyAgendor.API.Controllers
             };
 
             var newFuncionario = _funcionarioRepository.CreateFuncionario(funcionario);
-
             model.Funcionario_Id = newFuncionario.FuncionarioId;
             model.Endereco_Id = newFuncionario.EnderecoId;
 
