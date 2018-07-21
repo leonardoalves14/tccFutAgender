@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using SocietyAgendor.API.Concrete;
 using SocietyAgendor.API.Services;
 
@@ -34,6 +28,7 @@ namespace SocietyAgendor.API
             services.AddTransient<IFuncionarioRepository, FuncionarioRepository>();
             services.AddTransient<IHorarioRepository, HorarioRepository>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            services.AddTransient<IAgendamentoRepository, AgendamentoRepository>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
