@@ -51,6 +51,8 @@ BenchmarkDotNet.Artifacts/
 # .NET Core
 project.lock.json
 project.fragment.lock.json
+# ADICIONADO
+#appsettings.*
 artifacts/
 #**/Properties/launchSettings.json --> ADICIONADO COMENTARIO
 
