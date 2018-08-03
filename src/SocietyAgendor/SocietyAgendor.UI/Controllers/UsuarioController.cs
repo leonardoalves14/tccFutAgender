@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SocietyAgendor.UI.Models;
 using SocietyAgendor.UI.Service;
+using System.Threading.Tasks;
 
 namespace SocietyAgendor.UI.Controllers
 {
@@ -12,9 +14,18 @@ namespace SocietyAgendor.UI.Controllers
             _usuarioService = usuarioService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var usuarios = await _usuarioService.GetUsuariosAsync();
+
+            return View(usuarios);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UsuarioUpdate(UsuarioModel model)
+        {
+
+            return NoContent();
         }
     }
 }

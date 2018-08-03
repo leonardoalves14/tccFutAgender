@@ -2,4 +2,71 @@
     ViewData["Title"] = "Usuário";
 }
 
-<h2>Index</h2>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading text-center"><h3>Lista de Usuários</h3></div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th style="width: 150px;"></th>
+                <th style="width: 80px;">Id</th>
+                <th>Login</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var usuario in Model)
+            {
+                <tr>
+                    <td>
+                        <a id="btnEditUsuario" data-target="#exampleModal" data-userlogin="@usuario.Usuario_Login" data-userid="@usuario.Usuario_Id" data-toggle="modal" class="btn btn-sm btn-default">Editar</a>
+                        <a class="btn btn-sm btn-danger">Excluir</a>
+                    </td>
+                    <th>@usuario.Usuario_Id</th>
+                    <td>@usuario.Usuario_Login</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Editar Usuário</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" asp-action="UsuarioUpdate" asp-controller="Usuario">
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Login</label>
+                        <input type="text" class="form-control" id="usuarioLogin">
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">Senha</label>
+                        <input type="password" class="form-control" id="usuarioSenha">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-success">Gravar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script>
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget);
+            var id = button.data('userid');
+            var login = button.data('userlogin');
+            var modal = $(this);
+
+            $('#usuarioLogin').val(login);
+            $('#usuarioSenha').val("1213245");
+        });
+    </script>
+
+}

@@ -13,7 +13,7 @@ namespace SocietyAgendor.UI.Concrete
     {
         private const string URL = "http://localhost:50197/api";
 
-        public async Task<List<UsuarioModel>> GetUsuarios()
+        public async Task<List<UsuarioModel>> GetUsuariosAsync()
         {
             var httpClient = new HttpClient();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
