@@ -22,7 +22,7 @@ namespace SocietyAgendor.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult UsuarioUpdate(int usuarioId, string usuarioLogin)
+        public IActionResult UsuarioUpdate(UsuarioModel usuario)
         {
             // todo
             return NoContent();
