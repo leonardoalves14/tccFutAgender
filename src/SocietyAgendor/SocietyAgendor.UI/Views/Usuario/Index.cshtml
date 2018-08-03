@@ -30,9 +30,7 @@
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog" role="document">
         @{await Html.RenderPartialAsync("_EditUserPartial", new UsuarioModel { Usuario_Id = 1, Usuario_Login = "teste"});}
-    </div>
 </div>
 
 @section scripts{
