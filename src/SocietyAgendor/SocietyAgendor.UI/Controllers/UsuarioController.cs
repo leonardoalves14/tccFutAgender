@@ -21,10 +21,10 @@ namespace SocietyAgendor.UI.Controllers
             return View(usuarios);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UsuarioUpdate(UsuarioModel model)
+        [HttpPost]
+        public IActionResult UsuarioUpdate(int usuarioId, string usuarioLogin)
         {
-
+            // todo
             return NoContent();
         }
     }

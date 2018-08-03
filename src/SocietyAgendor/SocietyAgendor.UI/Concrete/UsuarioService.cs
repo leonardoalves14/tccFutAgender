@@ -11,7 +11,7 @@ namespace SocietyAgendor.UI.Concrete
 {
     public class UsuarioService : IUsuarioService
     {
-        private const string URL = "http://localhost:50197/api";
+        private const string URL = "http://socityagendorservice.azurewebsites.net/api";
 
         public async Task<List<UsuarioModel>> GetUsuariosAsync()
         {
