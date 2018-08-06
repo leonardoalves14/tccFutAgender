@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SocietyAgendor.UI.Models;
 using SocietyAgendor.UI.Service;
+using System;
 using System.Threading.Tasks;
 
 namespace SocietyAgendor.UI.Controllers
@@ -19,13 +20,64 @@ namespace SocietyAgendor.UI.Controllers
             var usuarios = await _usuarioService.GetUsuariosAsync();
 
             return View(usuarios);
-        }
+        }        
+
+        public IActionResult UsuarioAdd()
+        {
+            return PartialView("_NewUserPartial", new UsuarioModel());
+        }        
 
         [HttpPost]
-        public IActionResult UsuarioUpdate(UsuarioModel usuario)
+        public async Task<IActionResult> UsuarioAdd(UsuarioModel usuario)
         {
-            // todo
-            return NoContent();
+            if (!ModelState.IsValid)
+            {
+                throw new Exception(ModelStateInvalidError.Message(ModelState));
+            }
+
+           var newUser = await _usuarioService.CreateUsuario(usuario);
+
+            return RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> UsuarioUpdate(int usuarioId)
+        {
+            var usuarios = await _usuarioService.GetUsuariosAsync();
+            var usuario = usuarios.Find(c => c.Usuario_Id == usuarioId);
+
+            return PartialView("_EditUserPartial", usuario);
+        }
+
+        //// TODO
+        //[HttpPost]
+        //public async Task<IActionResult> UsuarioUpdate(UsuarioModel usuario)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        throw new Exception(ModelStateInvalidError.Message(ModelState));
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}
+
+        public async Task<IActionResult> UsuarioDelete(int usuarioId)
+        {
+            var usuarios = await _usuarioService.GetUsuariosAsync();
+            var usuario = usuarios.Find(c => c.Usuario_Id == usuarioId);
+
+            return PartialView("_DeleteUserPartial", usuario);
+        }
+
+        //// TODO
+        //[HttpPost]
+        //public async Task<IActionResult> UsuarioDelete(int usuaroiId)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        throw new Exception(ModelStateInvalidError.Message(ModelState));
+        //    }
+
+        //    return RedirectToAction("Index");
+        //}        
     }
 }

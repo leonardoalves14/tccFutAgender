@@ -7,5 +7,6 @@ namespace SocietyAgendor.UI.Service
     public interface IUsuarioService
     {
         Task<List<UsuarioModel>> GetUsuariosAsync();
+        Task<UsuarioModel> CreateUsuario(UsuarioModel model);
     }
 }
