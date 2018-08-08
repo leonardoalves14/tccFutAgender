@@ -60,24 +60,25 @@ namespace SocietyAgendor.UI.Controllers
         //    return RedirectToAction("Index");
         //}
 
-        public async Task<IActionResult> UsuarioDelete(int usuarioId)
+        public async Task<IActionResult> UsuarioDeletePartial(int usuarioId)
         {
             var usuarios = await _usuarioService.GetUsuariosAsync();
             var usuario = usuarios.Find(c => c.Usuario_Id == usuarioId);
 
             return PartialView("_DeleteUserPartial", usuario);
         }
+                
+        [HttpPost]
+        public async Task<IActionResult> UsuarioDelete(UsuarioModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new Exception(ModelStateInvalidError.Message(ModelState));
+            }
 
-        //// TODO
-        //[HttpPost]
-        //public async Task<IActionResult> UsuarioDelete(int usuaroiId)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        throw new Exception(ModelStateInvalidError.Message(ModelState));
-        //    }
-
-        //    return RedirectToAction("Index");
-        //}        
+            var response = await _usuarioService.DeleteUsuario((int)model.Usuario_Id);
+                       
+            return RedirectToAction("Index");
+        }
     }
 }

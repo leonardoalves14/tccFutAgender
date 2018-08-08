@@ -3,6 +3,7 @@ using SocietyAgendor.UI.Models;
 using SocietyAgendor.UI.Service;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -41,7 +42,7 @@ namespace SocietyAgendor.UI.Concrete
             var usuario = new UsuarioModel();
 
             HttpResponseMessage response = await client.PostAsync(
-                $"{URL}/usuarios", 
+                $"{URL}/usuarios",
                 new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();
@@ -56,6 +57,14 @@ namespace SocietyAgendor.UI.Concrete
             }
 
             return usuario;
+        }
+
+        public async Task<HttpStatusCode> DeleteUsuario(int usuarioId)
+        {
+            HttpResponseMessage response = await client.DeleteAsync($"{URL}/usuarios/{usuarioId}");
+
+            response.EnsureSuccessStatusCode();
+            return response.StatusCode;
         }
     }
 }
