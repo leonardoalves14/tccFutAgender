@@ -1,7 +1,55 @@
-﻿
+﻿@model IEnumerable<FuncionarioModel>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Funcionário";
 }
 
-<h2>Funcionário Index</h2>
+<div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading text-center">
+        <h3>Lista de Funcionários</h3>
+        <p><button id="btnNovoUsuario" class="btn btn-sm btn-default">Novo Funcionário</button></p>
+    </div>
+    <table class="table" id="tableUsers">
+        <thead>
+            <tr>
+                <th style="width: 150px;"></th>
+                <th style="width: 80px;">Id</th>
+                <th>@Html.DisplayNameFor(m => m.Funcionario_Nome)</th>
+                <th>@Html.DisplayNameFor(m => m.Funcionario_Telefone)</th>
+                <th>@Html.DisplayNameFor(m => m.Funcionario_Email)</th>
+                <th>@Html.DisplayNameFor(m => m.FuncionarioDtAdmissao)</th>
+                <th>@Html.DisplayNameFor(m => m.Cargo_Desc)</th>
+                <th>@Html.DisplayNameFor(m => m.Estabelecimento_Nome)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var func in Model)
+            {
+                <tr>
+                    <td>
+                        <button type="button" data-userid="@func.Funcionario_Id" class="btn btn-sm btn-default editUser">Editar</button>
+                        <a class="btn btn-sm btn-danger" data-userid="@func.Funcionario_Id">Excluir</a>
+                    </td>
+                    <th>@func.Funcionario_Id</th>
+                    <td>@func.Funcionario_Nome</td>
+                    <td>@func.Funcionario_Telefone</td>
+                    <td>@func.Funcionario_Email</td>
+                    <td>@func.FuncionarioDtAdmissao</td>
+                    <td>@func.Cargo_Desc</td>
+                    <td>@func.Estabelecimento_Nome</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
+<div class="modal fade" id="exampleModalFunc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    @* Partial Content *@
+</div>
+
+@section scripts{
+    <script>
+
+
+    </script>
+}

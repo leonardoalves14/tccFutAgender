@@ -1,16 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using SocietyAgendor.UI.Service;
 
 namespace SocietyAgendor.UI.Controllers
 {
     public class FuncionarioController : Controller
     {
-        public IActionResult Index()
+        private readonly IFuncionarioService _funcionarioService;
+
+        public FuncionarioController(IFuncionarioService funcionarioService)
         {
-            return View();
+            _funcionarioService = funcionarioService;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var funcionarios = await _funcionarioService.GetFuncionariosAsync();
+
+            return View(funcionarios);
         }
     }
 }

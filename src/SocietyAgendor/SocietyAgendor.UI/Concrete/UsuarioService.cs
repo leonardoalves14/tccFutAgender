@@ -37,7 +37,7 @@ namespace SocietyAgendor.UI.Concrete
             return usuarios;
         }
 
-        public async Task<UsuarioModel> CreateUsuario(UsuarioModel model)
+        public async Task<UsuarioModel> CreateUsuarioAsync(UsuarioModel model)
         {
             var usuario = new UsuarioModel();
 
@@ -59,7 +59,7 @@ namespace SocietyAgendor.UI.Concrete
             return usuario;
         }
 
-        public async Task<HttpStatusCode> UpdateUsuario(UsuarioModel model)
+        public async Task<HttpStatusCode> UpdateUsuarioAsync(UsuarioModel model)
         {
             HttpResponseMessage response = await client.PutAsync(
                 $"{URL}/{model.Usuario_Id}", 
@@ -69,7 +69,7 @@ namespace SocietyAgendor.UI.Concrete
             return response.StatusCode;
         }
 
-        public async Task<HttpStatusCode> DeleteUsuario(int usuarioId)
+        public async Task<HttpStatusCode> DeleteUsuarioAsync(int usuarioId)
         {
             HttpResponseMessage response = await client.DeleteAsync($"{URL}/{usuarioId}");
 

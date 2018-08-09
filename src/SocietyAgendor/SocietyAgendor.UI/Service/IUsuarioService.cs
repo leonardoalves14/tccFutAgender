@@ -8,8 +8,9 @@ namespace SocietyAgendor.UI.Service
     public interface IUsuarioService
     {
         Task<List<UsuarioModel>> GetUsuariosAsync();
-        Task<UsuarioModel> CreateUsuario(UsuarioModel model);
-        Task<HttpStatusCode> UpdateUsuario(UsuarioModel model);
-        Task<HttpStatusCode> DeleteUsuario(int usuarioId);
+        Task<UsuarioModel> CreateUsuarioAsync(UsuarioModel model);
+        Task<HttpStatusCode> UpdateUsuarioAsync(UsuarioModel model);
+        Task<HttpStatusCode> DeleteUsuarioAsync(int usuarioId);
+        //TODO: Update password
     }
 }

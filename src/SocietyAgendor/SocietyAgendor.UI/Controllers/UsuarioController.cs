@@ -35,7 +35,7 @@ namespace SocietyAgendor.UI.Controllers
                 throw new Exception(ModelStateInvalidError.Message(ModelState));
             }
 
-           var newUser = await _usuarioService.CreateUsuario(usuario);
+           var newUser = await _usuarioService.CreateUsuarioAsync(usuario);
 
             return RedirectToAction("Index");
         }
@@ -56,7 +56,7 @@ namespace SocietyAgendor.UI.Controllers
                 throw new Exception(ModelStateInvalidError.Message(ModelState));
             }
 
-            var response = await _usuarioService.UpdateUsuario(usuario);
+            var response = await _usuarioService.UpdateUsuarioAsync(usuario);
 
             return RedirectToAction("Index");
         }
@@ -77,7 +77,7 @@ namespace SocietyAgendor.UI.Controllers
                 throw new Exception(ModelStateInvalidError.Message(ModelState));
             }
 
-            var response = await _usuarioService.DeleteUsuario((int)model.Usuario_Id);
+            var response = await _usuarioService.DeleteUsuarioAsync((int)model.Usuario_Id);
                        
             return RedirectToAction("Index");
         }
