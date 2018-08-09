@@ -8,7 +8,7 @@ namespace SocietyAgendor.API.Models
         public int? Agendamento_Id { get; set; }
 
         [Required]
-        [MaxLength(200, ErrorMessage = "É permitido até 200 caracteres.")]
+        [StringLength(200, ErrorMessage = "É permitido até 200 caracteres.")]
         public string Agendamento_Descricao { get; set; }
         
         public DateTime Agendamento_Data { get; set; }
