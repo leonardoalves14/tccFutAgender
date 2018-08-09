@@ -14,7 +14,7 @@ namespace SocietyAgendor.UI.Concrete
     public class UsuarioService : IUsuarioService
     {
         private static readonly HttpClient client = new HttpClient();
-        private const string URL = "http://socityagendorservice.azurewebsites.net/api";
+        private const string URL = "http://socityagendorservice.azurewebsites.net/api/usuarios";
 
         public async Task<List<UsuarioModel>> GetUsuariosAsync()
         {
@@ -22,7 +22,7 @@ namespace SocietyAgendor.UI.Concrete
 
             var usuarios = new List<UsuarioModel>();
 
-            var resposta = await client.GetAsync($"{URL}/usuarios").ConfigureAwait(false);
+            var resposta = await client.GetAsync(URL).ConfigureAwait(false);
 
             if (resposta.IsSuccessStatusCode)
             {
@@ -42,7 +42,7 @@ namespace SocietyAgendor.UI.Concrete
             var usuario = new UsuarioModel();
 
             HttpResponseMessage response = await client.PostAsync(
-                $"{URL}/usuarios",
+                URL,
                 new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
 
             response.EnsureSuccessStatusCode();
@@ -59,12 +59,22 @@ namespace SocietyAgendor.UI.Concrete
             return usuario;
         }
 
+        public async Task<HttpStatusCode> UpdateUsuario(UsuarioModel model)
+        {
+            HttpResponseMessage response = await client.PutAsync(
+                $"{URL}/{model.Usuario_Id}", 
+                new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
+            response.EnsureSuccessStatusCode();
+
+            return response.StatusCode;
+        }
+
         public async Task<HttpStatusCode> DeleteUsuario(int usuarioId)
         {
-            HttpResponseMessage response = await client.DeleteAsync($"{URL}/usuarios/{usuarioId}");
+            HttpResponseMessage response = await client.DeleteAsync($"{URL}/{usuarioId}");
 
             response.EnsureSuccessStatusCode();
             return response.StatusCode;
-        }
+        }        
     }
 }

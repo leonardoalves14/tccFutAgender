@@ -9,6 +9,7 @@ namespace SocietyAgendor.UI.Service
     {
         Task<List<UsuarioModel>> GetUsuariosAsync();
         Task<UsuarioModel> CreateUsuario(UsuarioModel model);
+        Task<HttpStatusCode> UpdateUsuario(UsuarioModel model);
         Task<HttpStatusCode> DeleteUsuario(int usuarioId);
     }
 }

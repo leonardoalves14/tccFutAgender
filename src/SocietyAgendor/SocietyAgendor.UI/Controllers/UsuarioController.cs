@@ -48,17 +48,18 @@ namespace SocietyAgendor.UI.Controllers
             return PartialView("_EditUserPartial", usuario);
         }
 
-        //// TODO
-        //[HttpPost]
-        //public async Task<IActionResult> UsuarioUpdate(UsuarioModel usuario)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        throw new Exception(ModelStateInvalidError.Message(ModelState));
-        //    }
+        [HttpPost]
+        public async Task<IActionResult> UsuarioUpdate(UsuarioModel usuario)
+        {
+            if (!ModelState.IsValid)
+            {
+                throw new Exception(ModelStateInvalidError.Message(ModelState));
+            }
 
-        //    return RedirectToAction("Index");
-        //}
+            var response = await _usuarioService.UpdateUsuario(usuario);
+
+            return RedirectToAction("Index");
+        }
 
         public async Task<IActionResult> UsuarioDeletePartial(int usuarioId)
         {
