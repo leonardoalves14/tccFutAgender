@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using SocietyAgendor.UI.Models;
 
@@ -10,8 +6,9 @@ namespace SocietyAgendor.UI.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        public IActionResult Index(string usuario)
         {
+            ViewData["Login"] = usuario ?? "";
             return View();
         }
 

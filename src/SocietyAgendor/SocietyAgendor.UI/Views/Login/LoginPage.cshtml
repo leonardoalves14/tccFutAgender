@@ -1,0 +1,72 @@
+﻿@model LoginModel
+
+<style type="text/css">
+    #nosso-container {
+        padding-top: 40px;
+        padding-bottom: 40px;
+    }
+
+    .form-signin {
+        max-width: 330px;
+        padding: 15px;
+        margin: 0 auto;
+    }
+
+        .form-signin .form-signin-heading,
+        .form-signin .checkbox {
+            margin-bottom: 10px;
+        }
+
+        .form-signin .checkbox {
+            font-weight: normal;
+        }
+
+        .form-signin .form-control {
+            position: relative;
+            height: auto;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+            .form-signin .form-control:focus {
+                z-index: 2;
+            }
+
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+</style>
+
+<div id="nosso-container">
+    <form id="frmLogin" class="form-signin form-horizontal" asp-controller="Login" asp-action="Login" method="post" role="form">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <h2 class="form-signin-heading text-center">Login</h2>
+            <label asp-for="User" class="sr-only">Usuário</label>
+            <input asp-for="User" class="form-control" placeholder="Usuário" autofocus>
+            <span asp-validation-for="User" class="text-danger"></span>
+
+            <label asp-for="Password" class="sr-only">Password</label>
+            <input asp-for="Password" class="form-control" placeholder="Senha">
+            <span asp-validation-for="Password" class="text-danger"></span>
+
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+        </div>
+    </form>
+</div>
+
+@section scripts
+{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

@@ -78,7 +78,7 @@ namespace SocietyAgendor.UI.Controllers
             }
 
             var response = await _usuarioService.DeleteUsuarioAsync((int)model.Usuario_Id);
-                       
+
             return RedirectToAction("Index");
         }
     }
