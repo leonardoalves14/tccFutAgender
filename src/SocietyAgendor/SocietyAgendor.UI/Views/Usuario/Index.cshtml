@@ -38,6 +38,7 @@
 </div>
 
 @section scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script>
         function editUser(event) {
             event.preventDefault();
@@ -108,7 +109,7 @@
                     alert(response.responseText);
                 }
             });
-        });               
+        });
 
     </script>
 }

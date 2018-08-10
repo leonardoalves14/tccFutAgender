@@ -7,7 +7,7 @@
     <!-- Default panel contents -->
     <div class="panel-heading text-center">
         <h3>Lista de Funcionários</h3>
-        <p><button id="btnNovoUsuario" class="btn btn-sm btn-default">Novo Funcionário</button></p>
+        <p><button id="btnNovoFuncionario" class="btn btn-sm btn-default">Novo Funcionário</button></p>
     </div>
     <table class="table" id="tableUsers">
         <thead>
@@ -34,7 +34,7 @@
                     <td>@func.Funcionario_Nome</td>
                     <td>@func.Funcionario_Telefone</td>
                     <td>@func.Funcionario_Email</td>
-                    <td>@func.FuncionarioDtAdmissao</td>
+                    <td>@func.FuncionarioDtAdmissao.ToString("dd/MM/yyyy")</td>
                     <td>@func.Cargo_Desc</td>
                     <td>@func.Estabelecimento_Nome</td>
                 </tr>
@@ -48,8 +48,28 @@
 </div>
 
 @section scripts{
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
     <script>
+        $("#btnNovoFuncionario").on('click', function () {
+            event.preventDefault();
 
+            $.ajax({
+                type: "GET",
+                url: "/Funcionario/FuncionarioAdd",
+                async: true,
+                cache: false,
+                success: function (response) {
+                    $('#exampleModalFunc').html(response);
+                    $('#exampleModalFunc').modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
 
     </script>
 }
