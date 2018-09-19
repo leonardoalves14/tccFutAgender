@@ -31,3 +31,6 @@
 
             return sha1text;
         }
+
+		
+		https://www.codeproject.com/Articles/1216929/asp-net-core-identity-user-management-mvc
