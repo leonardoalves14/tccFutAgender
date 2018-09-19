@@ -27,7 +27,7 @@
             {
                 <tr>
                     <td>
-                        <button type="button" data-userid="@func.Funcionario_Id" class="btn btn-sm btn-default editUser">Editar</button>
+                        <a asp-controller="Funcionario" asp-action="FuncionarioUpdate" asp-route-funcId="@func.Funcionario_Id" data-userid="@func.Funcionario_Id" class="btn btn-sm btn-default editUser">Editar</a>
                         <a class="btn btn-sm btn-danger" data-userid="@func.Funcionario_Id">Excluir</a>
                     </td>
                     <th>@func.Funcionario_Id</th>
