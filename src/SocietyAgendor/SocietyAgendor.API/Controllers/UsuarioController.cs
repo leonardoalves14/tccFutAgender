@@ -73,7 +73,7 @@ namespace SocietyAgendor.API.Controllers
             _usuarioRepository.UpdateUsuario(usuario);
 
             return NoContent();
-        }        
+        }
 
         [HttpDelete("{usuarioId}")]
         public IActionResult DeleteUsuario(int usuarioId)
@@ -100,6 +100,28 @@ namespace SocietyAgendor.API.Controllers
             _usuarioRepository.UpdateUsuarioSenha(usuario);
 
             return NoContent();
+        }
+
+        [HttpPost("login")]
+        public IActionResult LoginUsuario([FromBody] UsuarioModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var usuario = new Usuario
+            {
+                UsuarioLogin = model.Usuario_Login,
+                UsuarioSenha = model.Usuario_Senha
+            };
+
+            var isLogged = _usuarioRepository.LoginUsuario(usuario);
+
+            if (isLogged)
+                return Ok();
+            else
+                return NotFound();
         }
     }
 }

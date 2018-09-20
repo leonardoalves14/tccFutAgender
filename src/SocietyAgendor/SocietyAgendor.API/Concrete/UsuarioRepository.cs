@@ -3,8 +3,7 @@ using Microsoft.Extensions.Configuration;
 using SocietyAgendor.API.Entities;
 using SocietyAgendor.API.Services;
 using System.Collections.Generic;
-using System.Security.Cryptography;
-using System.Text;
+using System.Linq;
 
 namespace SocietyAgendor.API.Concrete
 {
@@ -50,33 +49,20 @@ namespace SocietyAgendor.API.Concrete
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@Usuario_Id", model.UsuarioId, System.Data.DbType.Int32);
-            parameters.Add("@Usuario_Senha", SHA1Crypto(model.UsuarioSenha), System.Data.DbType.String);
+            parameters.Add("@Usuario_Senha", model.UsuarioSenha, System.Data.DbType.String);
 
             ExecuteSP("spuUsuarioSenha", parameters);
         }
 
-        /// <summary>
-        /// Método responsável pela criptografia SHA1
-        /// </summary>
-        /// <param name="value"></param>
-        /// <returns></returns>
-        private string SHA1Crypto(string value)
+        public bool LoginUsuario(Usuario model)
         {
-            if (string.IsNullOrEmpty(value))
-            {
-                return value;
-            }
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@Usuario_Login", model.UsuarioLogin, System.Data.DbType.String);
+            parameters.Add("@Usuario_Senha", model.UsuarioSenha, System.Data.DbType.String);
 
-            SHA1 sha = new SHA1CryptoServiceProvider();
-            var hashedData = sha.ComputeHash(Encoding.Unicode.GetBytes(value));
-            var sha1text = string.Empty;
+            var usuario = ExecuteSP<Usuario>("spsValidaLogin", parameters);
 
-            foreach (var b in hashedData)
-            {
-                sha1text += string.Format("{0,2:X2}", b);
-            }
-
-            return sha1text;
+            return usuario.Exists(x => x.UsuarioId != null);
         }
     }
 }

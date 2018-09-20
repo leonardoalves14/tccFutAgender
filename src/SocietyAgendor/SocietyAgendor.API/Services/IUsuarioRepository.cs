@@ -10,5 +10,6 @@ namespace SocietyAgendor.API.Services
         void UpdateUsuario(Usuario model);
         void DeleteUsuario(int usuarioId);
         void UpdateUsuarioSenha(Usuario model);
+        bool LoginUsuario(Usuario model);
     }
 }

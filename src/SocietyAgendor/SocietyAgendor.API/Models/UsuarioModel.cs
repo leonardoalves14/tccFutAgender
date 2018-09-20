@@ -10,7 +10,7 @@ namespace SocietyAgendor.API.Models
         [StringLength(50, ErrorMessage = "É permitido até 50 caracteres.")]
         public string Usuario_Login { get; set; }
 
-        [StringLength(50, ErrorMessage = "É permitido até 50 caracteres.")]
+        [StringLength(200, ErrorMessage = "É permitido até 200 caracteres.")]
         public string Usuario_Senha { get; set; }
     }
 }
