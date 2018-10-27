@@ -7,7 +7,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" id="gridSystemModalLabel">Novo Usuário</h4>
             </div>
-            <form method="post">
+            <form id="frmNewUser" asp-controller="Usuario" asp-action="UsuarioAdd" method="post">
                 @Html.HiddenFor(m => m.Usuario_Id)
                 <div class="modal-body">
                     <div class="row">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="modal-footer form-group">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                    <input type="submit" value="Salvar" class="btn btn-primary" asp-controller="Usuario" asp-action="UsuarioAdd" />
+                    <input type="submit" value="Salvar" class="btn btn-primary" />
                 </div>
             </form>
         </div><!-- /.modal-content -->

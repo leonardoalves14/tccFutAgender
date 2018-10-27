@@ -18,8 +18,7 @@ namespace SocietyAgendor.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-
-            // Dependency Injection
+                        
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddTransient<IClienteRepository, ClienteRepository>();
             services.AddTransient<IEnderecoRepository, EnderecoRepository>();
@@ -29,6 +28,11 @@ namespace SocietyAgendor.API
             services.AddTransient<IHorarioRepository, HorarioRepository>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
             services.AddTransient<IAgendamentoRepository, AgendamentoRepository>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin", builder => builder.AllowAnyOrigin());
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -37,6 +41,8 @@ namespace SocietyAgendor.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("AllowSpecificOrigin");
 
             app.UseMvc();
         }

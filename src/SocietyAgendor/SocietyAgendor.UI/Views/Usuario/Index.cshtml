@@ -101,6 +101,7 @@
                 success: function (response) {
                     $('#exampleModal').html(response);
                     $('#exampleModal').modal('show');
+                    $.validator.unobtrusive.parse("#frmNewUser");                  
                 },
                 failure: function (response) {
                     alert(response.responseText);
