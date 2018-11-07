@@ -7,6 +7,7 @@ namespace SocietyAgendor.API.Entities
         public int? AgendamentoId { get; set; }
         public string AgendamentoDescricao { get; set; }
         public DateTime AgendamentoData { get; set; }
+        public DateTime DataAgendamento { get; set; }
         public int DiaSemanaId { get; set; }
         public string DiaSemanaDesc { get; set; }
         public int HorarioId { get; set; }

@@ -10,4 +10,10 @@ namespace SocietyAgendor.API.Entities
         public int? DiaSemanaId { get; set; }
         public string DiaSemanaDesc { get; set; }
     }
+
+    public class HorarioDisponivel
+    {
+        public int HorarioId { get; set; }
+        public string HorarioDesc { get; set; }
+    }
 }

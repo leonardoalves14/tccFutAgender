@@ -2,6 +2,7 @@
 using SocietyAgendor.API.Entities;
 using SocietyAgendor.API.Models;
 using SocietyAgendor.API.Services;
+using System;
 using System.Collections.Generic;
 
 namespace SocietyAgendor.API.Controllers
@@ -39,6 +40,24 @@ namespace SocietyAgendor.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("disponiveis/{dia}")]
+        public IActionResult GetHorariosDisponiveis(DateTime dia)
+        {
+            var result = new List<HorarioDisponivelModel>();
+            var list = _horarioRepository.GetHorariosDisponiveis(dia);
+
+            foreach (var item in list)
+            {
+                result.Add(new HorarioDisponivelModel
+                {
+                    Horario_Id = item.HorarioId,
+                    Horario_Desc = item.HorarioDesc
+                });
+            }
+
+            return Ok(result);
+        }
+
         [HttpPost]
         public IActionResult CreateHorario([FromBody] HorarioModel model)
         {
@@ -66,7 +85,7 @@ namespace SocietyAgendor.API.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }            
+            }
 
             var horario = new Horario
             {

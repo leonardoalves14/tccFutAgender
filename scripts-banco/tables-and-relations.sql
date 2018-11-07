@@ -158,9 +158,11 @@ GO
 ------ 18 -----------------------------------------------------------------------------
 -- Cuidado com Tabela
 CREATE TABLE AgendaHorarioDiaSemana(
-	Agendamento_Id INT NOT NULL,
-	DiaSemana_Id   INT NOT NULL,
-	Horario_Id     INT NOT NULL,
+	Agendamento_Id                 INT      NOT NULL,
+	DiaSemana_Id                   INT      NOT NULL,
+	Horario_Id                     INT      NOT NULL,
+	AgendaHorarioDiaSemana_DataDe  DATETIME NOT NULL,
+	AgendaHorarioDiaSemana_DataAte DATETIME NOT NULL,
     PRIMARY KEY CLUSTERED (Agendamento_Id ASC, DiaSemana_Id ASC, Horario_Id ASC)
 );
 GO

@@ -12,6 +12,7 @@ namespace SocietyAgendor.API.Models
         public string Agendamento_Descricao { get; set; }
         
         public DateTime Agendamento_Data { get; set; }
+        public DateTime DataAgendamento { get; set; }
         public int DiaSemana_Id { get; set; }
         public string DiaSemana_Desc { get; set; }
         public int Horario_Id { get; set; }

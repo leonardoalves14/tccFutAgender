@@ -22,6 +22,7 @@ namespace SocietyAgendor.API.Concrete
             parameters.Add("@Agendamento_Descricao", model.AgendamentoDescricao, System.Data.DbType.String);
             parameters.Add("@Cliente_Id", model.ClienteId, System.Data.DbType.Int32);
             parameters.Add("@Estabelecimento_Id", model.EstabelecimentoId, System.Data.DbType.Int32);
+            parameters.Add("@DataAgendamento", model.DataAgendamento, System.Data.DbType.DateTime);
             parameters.Add("@Horario_Id", model.HorarioId, System.Data.DbType.Int32);
             parameters.Add("@DiaSemana_Id", model.DiaSemanaId, System.Data.DbType.Int32);
 

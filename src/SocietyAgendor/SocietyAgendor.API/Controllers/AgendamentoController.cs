@@ -31,6 +31,7 @@ namespace SocietyAgendor.API.Controllers
                     Agendamento_Id = agendamento.AgendamentoId,
                     Agendamento_Descricao = agendamento.AgendamentoDescricao,
                     Agendamento_Data = agendamento.AgendamentoData,
+                    DataAgendamento = agendamento.DataAgendamento,
                     DiaSemana_Id = agendamento.DiaSemanaId,
                     DiaSemana_Desc = agendamento.DiaSemanaDesc,
                     Horario_Id = agendamento.HorarioId,
@@ -58,6 +59,7 @@ namespace SocietyAgendor.API.Controllers
                 AgendamentoDescricao = model.Agendamento_Descricao,
                 ClienteId = model.Cliente_Id,
                 EstabelecimentoId = model.Estabelecimento_Id,
+                DataAgendamento = model.DataAgendamento,
                 HorarioId = model.Horario_Id,
                 DiaSemanaId = model.DiaSemana_Id
             };

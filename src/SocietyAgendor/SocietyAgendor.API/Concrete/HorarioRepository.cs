@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using SocietyAgendor.API.Entities;
 using SocietyAgendor.API.Services;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SocietyAgendor.API.Concrete
 {
@@ -13,6 +15,14 @@ namespace SocietyAgendor.API.Concrete
         public List<Horario> GetAllHorarios()
         {
             return ExecuteSP<Horario>("spsHorario");
+        }
+
+        public List<HorarioDisponivel> GetHorariosDisponiveis(DateTime dia)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@DiaEscolhido", dia, System.Data.DbType.DateTime);
+
+            return ExecuteSP<HorarioDisponivel>("spsHorarioDisponivel", parameters);
         }
 
         public Horario CreateHorario(Horario model)
@@ -47,6 +57,6 @@ namespace SocietyAgendor.API.Concrete
             parameters.Add("@DiaSemana_Id", diaSemanaId, System.Data.DbType.Int32);
 
             ExecuteSP("spdHorario", parameters);
-        }
+        }        
     }
 }

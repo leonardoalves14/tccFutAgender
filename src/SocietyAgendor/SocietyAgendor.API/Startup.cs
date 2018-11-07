@@ -28,6 +28,7 @@ namespace SocietyAgendor.API
             services.AddTransient<IHorarioRepository, HorarioRepository>();
             services.AddTransient<IUsuarioRepository, UsuarioRepository>();
             services.AddTransient<IAgendamentoRepository, AgendamentoRepository>();
+            services.AddTransient<IDiaSemanaRepository, DiaSemanaRepository>();
 
             services.AddCors(options =>
             {
