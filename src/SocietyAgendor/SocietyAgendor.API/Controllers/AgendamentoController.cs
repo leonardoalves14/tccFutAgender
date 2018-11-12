@@ -70,6 +70,28 @@ namespace SocietyAgendor.API.Controllers
             return Ok(model);
         }
 
+        [HttpPost("{agendamentoId}")]
+        public IActionResult UpdateAgendamento(int agendamentoId, [FromBody] AgendamentoModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var agendamento = new Agendamento
+            {
+                AgendamentoId = model.Agendamento_Id,
+                AgendamentoDescricao = model.Agendamento_Descricao,                
+                DataAgendamento = model.DataAgendamento,
+                HorarioId = model.Horario_Id,
+                DiaSemanaId = model.DiaSemana_Id
+            };
+
+            _agendamentoRepository.UpdateCargo(agendamento);
+
+            return Ok(model);
+        }
+
         [HttpDelete("{agendamentoId}")]
         public IActionResult DeleteAgendamento(int agendamentoId)
         {

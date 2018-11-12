@@ -7,6 +7,7 @@ namespace SocietyAgendor.API.Services
     {
         List<Agendamento> GetAllAgendamentos();
         Agendamento CreateAgendamento(Agendamento model);
+        void UpdateCargo(Agendamento model);
         void DeleteAgendamento(int agendamentoId);
     }
 }

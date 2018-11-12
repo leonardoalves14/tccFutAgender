@@ -32,12 +32,24 @@ namespace SocietyAgendor.API.Concrete
             return model;
         }
 
+        public void UpdateCargo(Agendamento model)
+        {
+            DynamicParameters parameters = new DynamicParameters();
+            parameters.Add("@Agendamento_Id", model.AgendamentoId, System.Data.DbType.Int32);
+            parameters.Add("@Agendamento_Descricao", model.AgendamentoDescricao, System.Data.DbType.String);            
+            parameters.Add("@DataAgendamento", model.DataAgendamento, System.Data.DbType.DateTime);
+            parameters.Add("@Horario_Id", model.HorarioId, System.Data.DbType.Int32);
+            parameters.Add("@DiaSemana_Id", model.DiaSemanaId, System.Data.DbType.Int32);
+
+            ExecuteSP("spuAgendamento", parameters);
+        }
+
         public void DeleteAgendamento(int agendamentoId)
         {
             DynamicParameters parameters = new DynamicParameters();
             parameters.Add("@Agendamento_Id", agendamentoId, System.Data.DbType.Int32);
 
             ExecuteSP("spdAgendamento", parameters);
-        }
+        }        
     }
 }
