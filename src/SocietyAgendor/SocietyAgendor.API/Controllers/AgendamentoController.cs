@@ -70,7 +70,7 @@ namespace SocietyAgendor.API.Controllers
             return Ok(model);
         }
 
-        [HttpPost("{agendamentoId}")]
+        [HttpPut("{agendamentoId}")]
         public IActionResult UpdateAgendamento(int agendamentoId, [FromBody] AgendamentoModel model)
         {
             if (!ModelState.IsValid)
@@ -81,7 +81,7 @@ namespace SocietyAgendor.API.Controllers
             var agendamento = new Agendamento
             {
                 AgendamentoId = model.Agendamento_Id,
-                AgendamentoDescricao = model.Agendamento_Descricao,                
+                AgendamentoDescricao = model.Agendamento_Descricao,
                 DataAgendamento = model.DataAgendamento,
                 HorarioId = model.Horario_Id,
                 DiaSemanaId = model.DiaSemana_Id
